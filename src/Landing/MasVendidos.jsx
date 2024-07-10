@@ -8,7 +8,7 @@ const Carousel = () => {
     <Box>
       <Heading style={styles.h1}>LOS MAS VENDIDOS</Heading>
       <Flex style={styles.container}>
-        <Icon as={ArrowForwardIcon} boxSize={6} color="white" style={styles.icon} />
+        <Icon as={ArrowForwardIcon} boxSize={6} color="grey.500" style={styles.icon} />
         <ProductSimple />
         <ProductSimple />
         <ProductSimple />
@@ -20,8 +20,7 @@ const Carousel = () => {
 
 const styles = {
   container: {
-    width: "100vw",
-    background: "gray",
+    minWidth: "100vw",
     display: "flex",
     overflowX: "auto",
     gap: "1rem",

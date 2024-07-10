@@ -1,12 +1,27 @@
+import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 import React from "react";
 
 const BottomNav = () => {
   return (
     <div style={styles.container}>
-      <button style={styles.button}>x</button>
-      <button style={styles.button}>x</button>
-      <button style={styles.button}>x</button>
-      <button style={styles.button}>x</button>
+      <div style={styles.contBut}>
+        {" "}
+        <label htmlFor="text">inicio</label>
+        <button style={styles.button}>x</button>
+      </div>
+      <div style={styles.contBut}>
+        {" "}
+        <label htmlFor="text">Catálogo</label>
+        <button style={styles.button}>x</button>
+      </div>
+      <div style={styles.contBut}>
+        <label htmlFor="text">Carrito</label>
+        <button style={styles.button}>x</button>
+      </div>
+      <div style={styles.contBut}>
+        <label htmlFor="text">Mi Perfil</label>
+        <button style={styles.button}>x</button>
+      </div>
     </div>
   );
 };
@@ -21,7 +36,7 @@ const styles = {
     alignItems: "center",
     padding: "10px",
     backgroundColor: "whitesmoke",
-    boxShadow: "0 -2px 5px rgba(0, 0, 0, 0.1)"
+    boxShadow: "0 -2px 5px rgba(0, 0, 0, 0.1)",
   },
   button: {
     backgroundColor: "#282c34",
@@ -29,7 +44,13 @@ const styles = {
     border: "none",
     borderRadius: "5px",
     padding: "10px 20px",
-    cursor: "pointer"
+    cursor: "pointer",
+    width:"45px"
+  },
+  contBut:{
+    display:"flex",
+    flexDirection:"column-reverse",
+    alignItems:"center"
   }
 };
 

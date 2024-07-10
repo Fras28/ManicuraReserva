@@ -1,74 +1,39 @@
 import React from 'react';
-
-const IMAGE =
-  'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
-
-const ProductSimple = () => {
+import carnde from "../assets/carne.png"
+import "./Landing.css"
+const ProductCard = () => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '48px' }}>
-      <div
-        style={{
-          position: 'relative',
-          maxWidth: '330px',
-          width: '100%',
-          backgroundColor: 'white',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          borderRadius: '8px',
-          overflow: 'hidden',
-        }}
-      >
-        <div
-          style={{
-            position: 'relative',
-            marginTop: '-120px',
-            height: '230px',
-            borderRadius: '8px',
-            overflow: 'hidden',
-          }}
-        >
-          <div
-            style={{
-              transition: 'all 0.3s ease',
-              content: '""',
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
-              top: '5px',
-              left: '0',
-              backgroundImage: `url(${IMAGE})`,
-              backgroundSize: 'cover',
-              filter: 'blur(15px)',
-              zIndex: '-1',
-            }}
-          />
-          <img
-            style={{
-              borderRadius: '8px',
-              height: '230px',
-              width: '100%',
-              objectFit: 'cover',
-            }}
-            src={IMAGE}
-            alt=""
-          />
+    <div className="card">
+      <div className="image_container">
+       <img src={carnde} alt="carnde" />
+      </div>
+      <div className="title">
+        <span>New brand name</span>
+      </div>
+      <div className="size">
+        <span>peso</span>
+        <ul className="list-size">
+          <li className="item-list"><button className="item-list-button">500gr</button></li>
+          <li className="item-list"><button className="item-list-button">600gr</button></li>
+          <li className="item-list"><button className="item-list-button">800gr</button></li>
+          <li className="item-list"><button className="item-list-button">1kg</button></li>
+     
+        </ul>
+      </div>
+      <div className="action">
+        <div className="price">
+          <span>$299</span>
         </div>
-        <div style={{ padding: '20px', textAlign: 'center' }}>
-          <p style={{ color: '#718096', fontSize: '12px', textTransform: 'uppercase' }}>
-            Brand
-          </p>
-          <h2 style={{ fontSize: '24px', fontWeight: '500', margin: '8px 0' }}>
-            Nice Chair, pink
-          </h2>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <p style={{ fontSize: '28px', fontWeight: 'bold', margin: '0' }}>$57</p>
-            <p style={{ fontSize: '16px', color: '#718096', margin: '0 0 0 8px', textDecoration: 'line-through' }}>
-              $199
-            </p>
-          </div>
-        </div>
+        <button className="cart-button">
+          <svg className="cart-icon" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" strokeLinejoin="round" strokeLinecap="round"></path>
+          </svg>
+          <span>Add to cart</span>
+        </button>
       </div>
     </div>
   );
 };
 
-export default ProductSimple;
+export default ProductCard;
+
