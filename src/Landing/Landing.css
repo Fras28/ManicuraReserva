@@ -1,0 +1,57 @@
+/* ---------------------HERO--------------------- */
+/* Hero container */
+/* Hero container */
+.hero-container {
+    height: 70vh;
+    background-image: url('../assets/bgButcher.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-image{
+    width: 25%;
+  }
+  .hero-content {
+    text-align: center;
+    color: white;
+    z-index: 1;
+  }
+  
+  .hero-content h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+  }
+  
+  .hero-content button {
+    background-color: #282c34;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .hero-content button:hover {
+    background-color: #61dafb;
+  }
+  .css-1motzux{
+    margin: auto;
+  }
+
+
+
+  /* Static background for mobile devices */
+  @media (max-width: 768px) {
+    .hero-container {
+      background-attachment: scroll;
+    }
+  }
+  
