@@ -37,6 +37,8 @@ const styles = {
     padding: "10px",
     backgroundColor: "whitesmoke",
     boxShadow: "0 -2px 5px rgba(0, 0, 0, 0.1)",
+    zIndex:"99",
+    
   },
   button: {
     backgroundColor: "#282c34",

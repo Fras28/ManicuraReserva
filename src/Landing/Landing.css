@@ -73,7 +73,7 @@
   z-index: 5;
   width: 100%;
   height: 8rem;
-  background-color: var(--primary-800);
+  background-color: lightgrey;
   border-radius: 0.5rem;
 }
 
@@ -154,12 +154,12 @@
   gap: 0.25rem;
   padding: 0.5rem;
   width: 100%;
-  background-image: var(--bg-linear);
+  background-color: green;
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--light);
   white-space: nowrap;
-  border: 2px solid hsla(262, 83%, 58%, 0.5);
+  border: 2px solid hsla(138, 83%, 58%, 0.5);
   border-radius: 0.5rem;
   box-shadow: inset 0 0 0.25rem 1px var(--light);
 }
