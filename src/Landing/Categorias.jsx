@@ -3,6 +3,8 @@ import meat from "../assets/meat.jpg"; // Importa la imagen de meat
 import pollo from "../assets/pollo.jpeg";
 import cerdo from "../assets/cerdo.jpeg";
 import oferta from "../assets/oferta.jpeg"
+import bgImg from "../assets/BackPoulet.png"
+import logo from "../assets/LogoDeTernera.png"
 import { border } from "@chakra-ui/react";
 
 const Categorias = () => {
@@ -32,11 +34,13 @@ const Categorias = () => {
 
   return (
     <div style={styles.container}>
+      <div style={styles.container2}>
       {categorias.map((categoria, index) => (
         <div key={categoria.id} style={{ ...styles.card, backgroundImage: `url(${categoria.imagen})` }}>
           <h3 style={styles.title}>{categoria.titulo}</h3>
         </div>
       ))}
+      </div>
     </div>
   );
 };
@@ -46,13 +50,28 @@ const styles = {
     width: "100vw",
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
+    // backgroundImage: `url(${bgImg})`, 
     gap: "1rem",
     padding: "10px",
-    backgroundColor: "lightgrey",
     justifyItems: "center",
+    padding:"1.5rem"
+  },
+  container2: {
+    width: "100vw",
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    backgroundImage: `url(${logo})`, 
+    backgroundPosition:"center",
+    backgroundRepeat:"no-repeat",
+    filter: "drop-shadow(5px 5px 10px #000000)",
+    gap: "1rem",
+    padding: "10px",
+    justifyItems: "center",
+    padding:"1.5rem"
   },
   card: {
     width: "100%",
+    maxWidth:"500px",
     height: "200px",
     backgroundSize: "cover",
     backgroundPosition: "center",

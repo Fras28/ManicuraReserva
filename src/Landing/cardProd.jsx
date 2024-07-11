@@ -5,7 +5,7 @@ const ProductCard = () => {
   return (
     <div className="card">
       <div className="image_container">
-       <img src={carnde} alt="carnde" />
+       <img src={carnde} alt="carnde" style={{  filter:" drop-shadow(5px 5px 10px #000000)",}}/>
       </div>
       <div className="title">
         <span>New brand name</span>

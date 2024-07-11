@@ -1,31 +1,74 @@
-import React, { useEffect } from "react";
-import "./Landing.css"; // Asegúrate de ajustar esta importación según la ubicación correcta de tu archivo CSS
+import React, { useState } from 'react';
+import { Parallax } from 'react-parallax';
+import { Box, Button, Heading, Text, Image, Img } from '@chakra-ui/react';
 import carne from "../assets/carne.png"
+import bgImg from "../assets/bgButcher.jpg"
+
+
 
 const Hero = () => {
-  useEffect(() => {
-    const handleScroll = () => {
-      const parallax = document.querySelector('.hero-container');
-      if (parallax && window.innerWidth > 768) {
-        let offset = window.pageYOffset;
-        parallax.style.backgroundPositionY = offset * 0.7 + 'px';
-      }
-    };
+  const [modalOpen, setModalOpen] = useState(false);
 
-    window.addEventListener('scroll', handleScroll);
+  const openModal = () => {
+    setModalOpen(true);
+  }
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
+  const closeModal = () => {
+    setModalOpen(false);
+  }
   return (
-    <div className="hero-container">
-      <div className="hero-content">
-        <h1>Bienvenido a Nuestra Página</h1>
-        <button onClick={() => window.location.href = '/'}>Explorar</button>
-      </div>
-      {/* Aquí añades la imagen */}
-      <img className="hero-image" src={carne} alt="Hero Background" />
-    </div>
+    <Parallax
+
+      bgImage={bgImg}
+      strength={500}
+      bgImageStyle={{
+        left: '50%',
+        transform: 'translate3d(-50%, -53.1804px, 0px)',
+        transformStyle: 'preserve-3d',
+        backfaceVisibility: 'hidden',
+        minHeight:'28vh',
+        height: 'auto',
+        width: '1920px',
+        filter: 'none',        
+      }}
+      
+      className='paralaxStyle'
+    >
+      
+      <Box className='boxHero' display="flex" justifyContent="center" alignItems="center" bg="rgba(0, 0, 0, 0.5)">
+        <Box textAlign="center" color="white" position="relative">
+        <Heading
+      as="h1"
+      size="2xl"
+      mb="4"
+       sx={{ 
+        WebkitTextStroke: "2px #2e1f13",
+        fontFamily: "Berkshire Swash, serif"
+      }}
+    >
+    <Img src={carne} width="15%" margin="auto" style={{  filter:" drop-shadow(5px 5px 10px #000000)",}}/>
+    </Heading>
+          <Text fontSize="xl" mb="6" >
+           Servicio de la mejor calidad
+          </Text>
+          <Button style={{backgroundColor:"#FFBB10", border:"solid #2E1F13 4px", borderRadius:"12px"}} size="lg" leftIcon={""} onClick={openModal}>
+            Hacer Reserva
+          </Button>
+          <Text fontSize="l" mb="6">
+          Provincia | Direccion | Telefono 
+          </Text>
+        </Box>
+      </Box>
+
+        {/* Modal para NuevaReserva */}
+        {modalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>&times;</span>
+          </div>
+        </div>
+      )}
+    </Parallax>
   );
 };
 
