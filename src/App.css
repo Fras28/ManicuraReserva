@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: "#FFECD9";
 }
 
 .App-logo {
@@ -36,3 +37,519 @@
     transform: rotate(360deg);
   }
 }
+/* --------------------NAB BAR ----------------- */
+.css-1ef8uzr{
+  align-items: center;
+}
+/* --------------- calendario ------------- */
+
+.rojo {
+  background-color: #ff6666; /* Color rojo */
+}
+
+.naranja-claro {
+  background-color: #ffcc99; /* Color naranja claro */
+}
+
+.amarillo {
+  background-color: #ffff99; /* Color amarillo */
+}
+
+.verde {
+  background-color: #99ff99; /* Color verde */
+}
+
+.deshabilitado {
+  opacity: 0.5; /* Reduce la opacidad para dar efecto de deshabilitado */
+  pointer-events: none; /* Deshabilita eventos de mouse para hacerlo no interactivo */
+  text-decoration: line-through; /* Opcional: Agrega una línea sobre el texto */
+  color: #999; /* Color de texto deshabilitado */
+}
+
+.calendFechas {
+  display: flex;
+  gap: 20px;
+}
+
+/* src/components/Calendario.css */
+
+.calendario-container {
+  overflow: scroll;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.nueva-reserva-container h1,
+.calendario-container h1 {
+  text-align: center;
+  font-weight: bold;
+}
+.nueva-reserva-container p {
+  font-size: 12px;
+  text-align: center;
+}
+
+.calendario-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.calendario-buttons button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.calendario-buttons button:hover {
+  background-color: #45a049;
+}
+
+.calendario-filtrado {
+  display: flex;
+  gap: 20px;
+}
+
+.calendario-filtrado > div {
+  flex: 1;
+  border-left: solid 1px gainsboro;
+}
+
+.calendario-filtrado h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.calendario-filtrado ul {
+  list-style: none;
+  padding: 0;
+}
+
+.calendario-filtrado ul li {
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.calendario-filtrado ul li.rojo {
+  background-color: #ffcccc;
+}
+
+.calendario-filtrado ul li.naranja-claro {
+  background-color: #ffe6cc;
+}
+
+.calendario-filtrado ul li.amarillo {
+  background-color: #fff2cc;
+}
+
+.calendario-filtrado ul li.verde {
+  background-color: #ccffcc;
+}
+
+.reserva {
+  display: flex;
+  justify-content: space-between;
+}
+.bgPrestador {
+  padding: 2rem;
+  border-bottom: solid 2px gold;
+
+  position: relative;
+}
+
+/* --------------- Nueva Reserva -------------- */
+
+/* src/components/NuevaReserva.css */
+
+.nueva-reserva-container {
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+.nueva-reserva-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.nueva-reserva-form div {
+  margin-bottom: 15px;
+}
+
+.nueva-reserva-form label {
+  font-weight: bold;
+}
+.nueva-reserva-form label::after {
+  content: "*";
+  color: red;
+}
+
+.nueva-reserva-form input, .nueva-reserva-form select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.nueva-reserva-form input[type="date"],
+.nueva-reserva-form input[type="time"] {
+  appearance: none;
+}
+
+.nueva-reserva-form input[type="date"]:disabled,
+.nueva-reserva-form input[type="time"]:disabled {
+  background-color: #eee;
+}
+
+.nueva-reserva-form .error-message {
+  color: #ff6347;
+  margin-top: 5px;
+}
+
+.nueva-reserva-form .success-message {
+  color: #32cd32;
+  margin-top: 5px;
+}
+
+.nueva-reserva-form button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.nueva-reserva-form button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* ---------------------- Hero Paralax --------------- */
+/* HeroSection.css */
+.boxHero {
+  height: 70vh;
+}
+
+.parallax-container {
+  height: 70vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: block;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 50px),
+    50% 100%,
+    0 calc(100% - 50px)
+  );
+}
+
+.mobile-container {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .parallax-container {
+    display: none;
+  }
+
+  .mobile-container {
+    display: block;
+    width: 100%;
+    height: 70vh;
+  }
+
+  .boxHero {
+    height: auto;
+  }
+  .css-xj6ol9{
+    width: 100vw;
+  }
+}
+
+
+/* --------------- Prestadores ------------------ */
+.bgPrestador {
+  border-bottom: solid 2px gold;
+  padding: 2rem;
+}
+
+/* ----------------------  Cards ------------------------  */
+.cont-Cards {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+}
+.card {
+  --main-color: #000;
+  --submain-color: #78858f;
+  --bg-color: #fff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  position: relative;
+  width: 300px;
+  height: 384px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 12px;
+  border: solid 8px #2E1F13;
+  background: #4a4a4a;
+  overflow: hidden;
+  background: rgb(87, 87, 87);
+  background: linear-gradient(
+    94deg,
+    rgba(87, 87, 87, 1) 0%,
+    rgba(87, 87, 87, 1) 100%
+  );
+
+}
+
+.card__img {
+  height: 192px;
+  width: 100%;
+  overflow: hidden;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 50px),
+    50% 100%,
+    0 calc(100% - 50px)
+  );
+}
+
+.card__avatar {
+  position: absolute;
+  width: 114px;
+  height: 114px;
+  background: var(--bg-color);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: calc(50% - 57px);
+  overflow: hidden;
+}
+
+.card__avatar svg {
+  width: 100px;
+  height: 100px;
+}
+
+.card__title {
+  margin-top: 60px;
+  font-weight: 500;
+  font-size: 18px;
+  color: goldenrod;
+}
+
+.card__subtitle {
+  margin-top: 10px;
+  font-weight: 400;
+  font-size: 15px;
+  color: whitesmoke;
+}
+
+.card__btn {
+  margin-top: 15px;
+  width: 76px;
+  height: 31px;
+  border: 2px solid var(--main-color);
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--main-color);
+  background: var(--bg-color);
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+.card__btn-solid {
+  background: var(--main-color);
+  color: var(--bg-color);
+}
+
+.card__btn:hover {
+  background: var(--main-color);
+  color: var(--bg-color);
+}
+
+.card__btn-solid:hover {
+  background: var(--bg-color);
+  color: var(--main-color);
+}
+
+/* Estilos básicos para el modal */
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background-color: #f0f0f0;
+  margin: 20% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/* ---------------------- Testimonion ----------------- */
+/* Testim.css */
+.testim-parallax-bg {
+  position: absolute;
+  left: 50%;
+  transform: translate3d(-50%, -53.1804px, 0px);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  height: auto;
+  width: 1920px;
+  filter: none;
+}
+
+.testim-hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: white;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.testim-hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.testim-hero-content p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.testim-hero-content button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.testim-hero-content button:hover {
+  background-color: #ff4500;
+}
+
+.testim-hero-img {
+  margin-top: 24px;
+}
+
+.testim-parallax-container {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: block;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 50px),
+    50% 100%,
+    0 calc(100% - 50px)
+  );
+}
+
+
+
+.testim-mobile-container {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .testim-parallax-container {
+    display: none;
+  }
+
+  .testim-mobile-container {
+    display: block;
+    width: 100%;
+  }
+
+  .testim-boxHero {
+    height: auto;
+  }
+}
+
+.css-1kjx7mh{
+  background-color: #ffffff26;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+@media (max-width: 750px) {
+  .calendFechas {
+    flex-direction: column;
+  }
+  .calendario-filtrado {
+    flex-direction: column;
+  }
+  .calendario-filtrado > div {
+    border-left: none;
+    border-bottom: solid 1px gainsboro;
+  }
+  .cont-Cards {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .css-b3d31b {
+  overflow: hiddenreact-parallax-bgimage;
+  }
+  .parallax-container {
+    background-size: 100% auto; /* Ajusta la imagen de fondo al 100% del ancho del contenedor */
+  }
+  .css-1d1wr0h{
+    height: auto;
+
+  }
+}
+*{
+  box-sizing: content-box;
+  }

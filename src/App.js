@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { fetchPrestadores, fetchReservas } from './components/redux/slice.jsx';
+import Landing from './components/Landing/Landing.jsx';
 
-function App() {
+
+import Calendario from './components/Calendario.jsx';
+import EditUser from './components/Results/EditUser.jsx';
+import Exito from './components/Results/Exito.jsx';
+import SignupCard from './components/Autenticacion/SignUp.jsx';
+import SimpleCard from './components/Autenticacion/LogIn.jsx';
+import UserProfile from './components/Autenticacion/Perfil.jsx';
+import Error from './components/Results/Error.jsx';
+import NotFound from './components/Results/NotFound.jsx';
+
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchReservas());
+    dispatch(fetchPrestadores());
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/admin" element={<Calendario />} />
+        <Route path="/register" element={<SignupCard />} />
+        <Route path="/login" element={<SimpleCard />} />
+        <Route path="/perfil" element={<UserProfile />} />
+        <Route path="/editUser" element={<EditUser />} />
+        <Route path="/error" element={<Error />} />
+        <Route path="/Exito" element={<Exito />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
