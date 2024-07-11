@@ -1,8 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './Slice' // Ajusta la ruta según sea necesario
+import { configureStore } from '@reduxjs/toolkit';
+import reservasReducer from './Slice.jsx'; // Asegúrate de ajustar la ruta correcta
 
-export const store = configureStore({
-  reducer: {  
-    allData: counterReducer,
+const store = configureStore({
+  reducer: {
+    reservas: reservasReducer, // Agrega tu slice de reservas aquí
   },
-})
+});
+
+export default store;
