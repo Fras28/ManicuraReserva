@@ -45,9 +45,7 @@
   }
   
   @media (max-width: 750px) {
-    .card {
-      width: 40%;
-    }
+  
   
     .parallax {
       margin-right: 1.5rem;

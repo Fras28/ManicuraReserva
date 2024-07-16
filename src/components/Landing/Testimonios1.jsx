@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Parallax } from 'react-parallax';
 import { Box, useMediaQuery } from '@chakra-ui/react';
-import bgImg from "../assets/Testimonios.png";
+import bgImg from "../assets/fontoTest.jpeg";
 import WithSpeechBubbles from './Testimonios';
 import NuevaReserva from '../NuevaReserva';
 

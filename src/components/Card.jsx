@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import Peluq from "./assets/Peluq.jpeg";
-import NuevaReserva from './NuevaReserva'; // Importa el componente de NuevaReserva aquí
 
-const Card = ({ nombrePrestador, perfilImg, fondo, servicio,id }) => {
+import NuevaReserva from './NuevaReserva'; // Importa el componente de NuevaReserva aquí
+import { Checkbox, Radio, RadioGroup } from '@chakra-ui/react';
+
+const Card = ({ prestador, idPrestador }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPrice, setSelectedPrice] = useState(null);
+
+  const name = prestador?.nombre;
 
   const openModal = () => {
     setModalOpen(true);
@@ -12,20 +16,32 @@ const Card = ({ nombrePrestador, perfilImg, fondo, servicio,id }) => {
   const closeModal = () => {
     setModalOpen(false);
   }
-console.log(id);
+
+  const handlePriceChange = (value) => {
+    setSelectedPrice(value);
+  }
+
   return (
-    <div className="card" >
+    <div className="card">
       <div className="card__img">
-        <img src={`http://localhost:1337${fondo}`}  alt="Card Image" />
+        <img src={`http://localhost:1337${prestador?.fondoPerfil.data.attributes.url}`} alt="Card Image" />
       </div>
       <div className="card__avatar">
-        {/* Aquí va la segunda imagen */}
-        <img src={`http://localhost:1337${perfilImg}`} alt="Avatar" />
+        <img src={`http://localhost:1337${prestador?.avatar.data.attributes.url}`} alt="Avatar" />
       </div>
-      <div className="card__title">{nombrePrestador}</div>
-      <div className="card__subtitle">{servicio?.length > 3 ? servicio : "peluquero unisex"}</div>
-      <div className="card__wrapper">
-        <button className="card__btn" onClick={openModal}>Reservar</button>
+      <div className="card__title titMai">{prestador?.nombre}</div>
+      <div className="card__subtitle">{prestador?.servicio?.length > 3 ? prestador?.servicio : null}</div>
+      <div className="card__prices">
+        <RadioGroup onChange={handlePriceChange} value={selectedPrice}>
+          {prestador?.valors.data.map(valor => (
+            <div key={valor.id}  style={{color:"wheat", borderBottom:"dashed 1px wheat", padding:"4px"}} className='titMai'>
+              <Radio value={JSON.stringify(valor.attributes)} ><b>{valor.attributes.nombre} <br/> </b>  ${valor.attributes.precio} {valor.attributes.tiempo? <div><b>duración:</b> valor.attributes.tiempo'</div> :null}</Radio>
+            </div>
+          ))}
+        </RadioGroup>
+      </div>
+      <div className="card__wrapper" >
+        <button className="card__btn" onClick={openModal} disabled={!selectedPrice}  style={{ backgroundColor: "#e5b9d7", border: "solid #2E1F13 4px", borderRadius: "12px"}}>Reservar</button>
       </div>
 
       {/* Modal para NuevaReserva */}
@@ -33,7 +49,7 @@ console.log(id);
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={closeModal}>&times;</span>
-            <NuevaReserva prestador={{id, nombrePrestador}}/>
+            <NuevaReserva prestador={{ idPrestador, name }} precio={selectedPrice} />
           </div>
         </div>
       )}

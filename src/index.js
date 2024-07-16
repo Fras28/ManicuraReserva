@@ -4,15 +4,15 @@ import { Provider } from 'react-redux';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './Redux/Store';
+import store from './components/redux/store';
 
 
 // Extiende el tema Chakra UI si es necesario
 const theme = extendTheme({
   colors: {
     brand: {
-      900: "#1a365d",
-      800: "#153e75",
+      900: "#E5B9D7",
+      800: "#88B9BF",
       700: "#2a69ac",
     },
   },
@@ -23,7 +23,7 @@ ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <Provider store={store}>
       <ChakraProvider theme={theme}>
-        <App />
+        <App  />
       </ChakraProvider>
     </Provider>
   </React.StrictMode>

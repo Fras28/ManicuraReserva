@@ -10,7 +10,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
-import logo from "./assets/logoMoon.png"
+import logo from "./assets/VARIANTE-13.png";
 
 import AppStoreBadge from './AppStoreBadge';
 import PlayStoreBadge from './PlayStoreBadge';
@@ -53,7 +53,7 @@ const LargeWithAppLinksAndSocial = () => {
       color={useColorModeValue('gray.700', 'gray.200')}>
       <Container as={Stack} maxW={'6xl'} py={10}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
-        <img src={logo} style={{height:"150px"}}></img>
+        <img src={logo} style={{height:"200px"}}></img>
           <Stack align={'flex-start'}>
             <ListHeader>Company</ListHeader>
             <Box as="a" href={'#'}>

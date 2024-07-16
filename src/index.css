@@ -4,20 +4,64 @@
   font-weight: 400;
   font-style: normal;
 } */
+@import url('https://fonts.googleapis.com/css2?family=Milonga&display=swap');
+/* .milonga-regular {
+  font-family: "Milonga", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+ */
+ @import url('https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&display=swap');
+/* .nothing-you-could-do-regular {
+  font-family: "Nothing You Could Do", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+ */
+ @import url('https://fonts.googleapis.com/css2?family=Halant:wght@300;400;500;600;700&display=swap');
+ /* .halant-light {
+  font-family: "Halant", serif;
+  font-weight: 300;
+  font-style: normal;
+}
 
+.halant-regular {
+  font-family: "Halant", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.halant-medium {
+  font-family: "Halant", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.halant-semibold {
+  font-family: "Halant", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.halant-bold {
+  font-family: "Halant", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+ */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  
+  -moz-osx-font-smoothing: grayscale;  
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+    
 }
 
 *{

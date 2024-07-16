@@ -3,7 +3,7 @@
 }
 .App {
   text-align: center;
-  background-color: "#FFECD9";
+  background-color: "#88B9BF";
 }
 
 .App-logo {
@@ -40,6 +40,18 @@
     transform: rotate(360deg);
   }
 }
+
+/* ------------------FONTS --------------- */
+.titMai{
+  font-family: "Berkshire Swash", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.subMai {
+  font-family: "Nothing You Could Do", cursive;
+  font-style: normal;
+}
+
 /* --------------------NAB BAR ----------------- */
 .css-1ef8uzr{
   align-items: center;
@@ -161,12 +173,7 @@
   display: flex;
   justify-content: space-between;
 }
-.bgPrestador {
-  padding: 2rem;
-  border-bottom: solid 2px gold;
 
-  position: relative;
-}
 
 /* --------------- Nueva Reserva -------------- */
 
@@ -230,11 +237,19 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  margin-bottom: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .nueva-reserva-form button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+.cho-container button {
+  background-color: #71D2F2;
+  font-weight: bold;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 /* ---------------------- Hero Paralax --------------- */
@@ -249,13 +264,14 @@
   background-position: center;
   position: relative;
   display: block;
-  clip-path: polygon(
+  /* clip-path: polygon(
     0 0,
     100% 0,
     100% calc(100% - 50px),
     50% 100%,
     0 calc(100% - 50px)
-  );
+  ); */
+  background-color:#88b9bf ;
 }
 
 .mobile-container {
@@ -284,10 +300,61 @@
 
 /* --------------- Prestadores ------------------ */
 .bgPrestador {
-  border-bottom: solid 2px gold;
   padding: 2rem;
+  border-bottom: solid 2px #6E5F83;
+  background-color: #E5B9D7;
+  position: relative;
 }
 
+.semicircle {
+  position: relative;
+  background: #88b9bf;
+
+}
+
+.bgPrestador {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.circle {
+  position: absolute;
+  width: 250px; /* Ajusta según tus necesidades */
+  height: 250px; /* Ajusta según tus necesidades */
+  border-radius: 50%;
+  background-image: url("./components/assets/FondoLogo.jpg"); /* Color de fondo del círculo */
+  z-index: 1; /* Asegúrate de que estén detrás de las cartas */
+  border: solid 2px #6E5E84; 
+}
+
+.circle-1 {
+  top: -50px; /* Ajusta la posición vertical */
+  left: 40%; /* Centrado horizontal */
+  transform: translateX(-50%);
+}
+
+.circle-2 {
+  bottom: -20%;
+  left: 20%; /* Ajusta la posición horizontal */
+}
+
+.circle-3 {
+  bottom: 70px;
+  right: 2%; /* Ajusta la posición horizontal */
+}
+
+.cont-Cards {
+  position: relative;
+  z-index: 2; /* Asegúrate de que las cartas estén por encima de los círculos */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.css-1bpnzr3 {
+margin-top: 0 !important;
+}
 /* ----------------------  Cards ------------------------  */
 .cont-Cards {
   display: flex;
@@ -303,7 +370,6 @@
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   position: relative;
   width: 300px;
-  height: 384px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -317,7 +383,8 @@
     rgba(87, 87, 87, 1) 0%,
     rgba(87, 87, 87, 1) 100%
   );
-
+  padding-bottom: .5rem;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .card__img {
@@ -352,7 +419,7 @@
 }
 
 .card__title {
-  margin-top: 60px;
+  margin-top: 150px;
   font-weight: 500;
   font-size: 18px;
   color: goldenrod;
@@ -377,6 +444,7 @@
   background: var(--bg-color);
   text-transform: uppercase;
   transition: all 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .card__btn-solid {
@@ -398,7 +466,7 @@
 .modal {
   display: block;
   position: fixed;
-  z-index: 99999;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
@@ -434,6 +502,10 @@
   cursor: pointer;
 }
 
+/* ------------------- HISTORIA ----------------------- */
+.LogoWebHistoria{
+  display: none;
+}
 
 /* ---------------------- Testimonion ----------------- */
 /* Testim.css */
@@ -520,11 +592,19 @@
     height: auto;
   }
 }
-
+/* ----------------- Mercado pago boton -------------------*/
+.cho-container{
+  display: flex;
+  justify-content: center;
+}
+/* ----------------- Mercado pago boton -------------------*/
 .css-1kjx7mh{
   background-color: #ffffff26;
   padding: 1rem;
   border-radius: 12px;
+}
+.buttonHero {
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 @media (max-width: 750px) {
@@ -552,7 +632,49 @@
     height: auto;
 
   }
+  .circle-1 {
+    top: -70px; /* Ajusta la posición vertical */
+    left: 80%; /* Centrado horizontal */
+    transform: translateX(-50%);
+    width: 151px; /* Ajusta según tus necesidades */
+    height: 151px; /* Ajusta según tus necesidades */
+
+  }
+  
+  .circle-2 {
+    position: absolute;
+    width: 150px; /* Ajusta según tus necesidades */
+    height: 150px; /* Ajusta según tus necesidades */
+    border-radius: 50%;
+    z-index: 1; /* Asegúrate de que esté detrás de las cartas */
+    top: 25%; /* Ajusta la posición vertical */
+    left: -10%; /* Ajusta la posición horizontal */
+    transform: rotate(70deg); /* Rotación de 70 grados */
+  }
+  
+  
+  .circle-3 {
+    position: absolute;
+    width: 150px; /* Ajusta según tus necesidades */
+    height: 150px; /* Ajusta según tus necesidades */
+    border-radius: 50%;
+    z-index: 1; /* Asegúrate de que esté detrás de las cartas */
+    bottom: -70px;
+    left: 40%; /* Ajusta la posición horizontal */
+    transform: rotate(20deg); /* Rotación de 70 grados */
+  }
+  .css-fig1r1 {
+  padding-bottom: 0 !important;
+  }
+  .LogoWebHistoria{
+    display: block;
+  }
+ 
 }
+
+
+
+
 *{
   box-sizing: content-box;
   }

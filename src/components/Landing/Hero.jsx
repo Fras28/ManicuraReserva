@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Parallax } from 'react-parallax';
 import { Box, Button, Heading, Text, useMediaQuery } from '@chakra-ui/react';
 import { BiBasket } from 'react-icons/bi';
-import bgImg from "../assets/Constelaciones.png";
+import bgImg from "../assets/fondo.jpg";
 import Prestadores from '../Prestadores';
 import NuevaReserva from '../NuevaReserva';
+import Logo from "../assets/VARIANTE-11.png"
 
 const HeroSection = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -27,19 +28,21 @@ const HeroSection = () => {
           mb="4"
           sx={{ 
             WebkitTextStroke: "2px #2e1f13",
-            fontFamily: "Berkshire Swash, serif"
+            fontFamily: "Berkshire Swash, serif",
+            display:"flex",
+            justifyContent:"center"
           }}
         >
-          *
+          <img src={Logo} alt="Logo" width="30%" style={{backgroundColor:"#000000b5", borderRadius:"50%"}} className='buttonHero'/>
         </Heading>
-        <Text fontSize="xl" mb="6">
-          Servicio de la mejor calidad
+        <Text fontSize="32px" mb="6" className='titMai'>
+          Maia Magical World
         </Text>
-        <Button style={{backgroundColor:"#FFBB10", border:"solid #2E1F13 4px", borderRadius:"12px"}} size="lg" leftIcon={<BiBasket />} onClick={openModal}>
+        <Button  style={{backgroundColor:"#88B9BF", border:"solid #6E5E84 4px", borderRadius:"12px", color:"#6E5E84" }} size="lg" leftIcon={<BiBasket />} onClick={openModal}>
           Hacer Reserva
         </Button>
         <Text fontSize="l" mb="6">
-          Provincia | Direccion | Telefono 
+          Tarot | Vitki | Carta Natal
         </Text>
       </Box>
     </Box>
@@ -95,3 +98,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

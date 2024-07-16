@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Logo from "../assets/logoMoon.png";
+import Logo from "../assets/VARIANTE-13.png";
 import {
   Box,
   Flex,
@@ -161,7 +161,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
 
 const MobileNav = () => {
   return (
-    <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
+    <Stack bg={"#6E5F84"} p={4} display={{ md: 'none' }}>
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
@@ -183,7 +183,7 @@ const MobileNavItem = ({ label, children, href }) => {
         _hover={{
           textDecoration: 'none',
         }}>
-        <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
+        <Text fontWeight={600} color={useColorModeValue('#E5B9D7', '#E5B9D7')}>
           {label}
         </Text>
         {children && (
@@ -231,14 +231,14 @@ const WithSubnavigation = () => {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue('#F9DBA2', 'gray.800')}
+        bg={useColorModeValue('#E5B9D7', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={'solid'}
-        borderColor={useColorModeValue('#A16C2A', '#6C442B')}
+        borderColor={useColorModeValue('#6E5E84', '#6E5E84')}
         align={'center'}>
         <Flex
           flex={{ base: 1, md: 'auto' }}
@@ -252,7 +252,7 @@ const WithSubnavigation = () => {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <img src={Logo} style={{ height: "50px" }} alt="Logo" />
+          <img src={Logo} style={{ height: "80px" }} alt="Logo" />
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
@@ -290,8 +290,8 @@ const WithSubnavigation = () => {
                 display={{ base: 'none', md: 'inline-flex' }}
                 fontSize={'sm'}
                 fontWeight={600}
-                color={'#2E1F13'}
-                style={{ backgroundColor: "#FFBB10", border: "solid #2E1F13 4px", borderRadius: "12px" }}
+                color={'#88B9BF'}
+                style={{ backgroundColor: "#6E5E84", border: "solid #2E1F13 4px", borderRadius: "12px" }}
                 _hover={{
                   bg: 'pink.300',
                 }}>

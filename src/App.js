@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { fetchPrestadores, fetchReservas } from './components/redux/slice.jsx';
+import { fetchComercio, fetchPrestadores, fetchReservas } from './components/redux/slice.jsx';
 import Landing from './components/Landing/Landing.jsx';
 
 
@@ -13,11 +13,14 @@ import SimpleCard from './components/Autenticacion/LogIn.jsx';
 import UserProfile from './components/Autenticacion/Perfil.jsx';
 import Error from './components/Results/Error.jsx';
 import NotFound from './components/Results/NotFound.jsx';
+import PaymentForm from './MercadoPago/PaymentForm.jsx';
+import PaymentResult from './MercadoPago/PaymentResult.jsx';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(fetchComercio());
     dispatch(fetchReservas());
     dispatch(fetchPrestadores());
   }, [dispatch]);
@@ -33,6 +36,8 @@ const App = () => {
         <Route path="/editUser" element={<EditUser />} />
         <Route path="/error" element={<Error />} />
         <Route path="/Exito" element={<Exito />} />
+        <Route exact path="/payment" component={<PaymentForm/>} />
+        <Route path="/payment/result" component={<PaymentResult/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
