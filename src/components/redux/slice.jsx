@@ -1,39 +1,57 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL;
+const COMERCIO_ID = process.env.REACT_APP_COMERCIO_ID;
+
 const initialState = {
   reservas: [],
   prestadores: [],
   user: null,
   token: null,
-  comercio: null, // Nuevo estado para almacenar la información del comercio
+  comercio: null,
   status: 'idle',
   error: null,
 };
 
 export const fetchPrestadores = createAsyncThunk('reservas/fetchPrestadores', async () => {
   try {
-    const response = await axios.get('http://localhost:1337/api/prestadores?populate=avatar&populate=fondoPerfil&populate=valors');
+    const response = await axios.get(`${API_URL}/api/prestadores?populate=avatar&populate=fondoPerfil&populate=valors`);
     return response.data;
   } catch (error) {
     console.error('Error fetching prestadores:', error);
     throw error;
   }
 });
+const removeToken = () => {
+  localStorage.removeItem('token');
+};
+
+export const logoutUser = createAsyncThunk('user/logout', async () => {
+  try {
+    removeToken();
+    return null;  // Puedes devolver cualquier dato que desees al completar el logout
+  } catch (error) {
+    console.error('Error logging out:', error);
+    throw error;
+  }
+});
+
+
 
 export const fetchComercio = createAsyncThunk('reservas/fetchComercio', async () => {
   try {
-    const response = await axios.get('http://localhost:1337/api/comercios/1');
+    const response = await axios.get(`${API_URL}/api/comercios/${COMERCIO_ID}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching prestadores:', error);
+    console.error('Error fetching comercio:', error);
     throw error;
   }
 });
 
 export const fetchReservas = createAsyncThunk('reservas/fetchReservas', async () => {
   try {
-    const response = await axios.get('http://localhost:1337/api/reservas?filters[comercio][id][$eq]=1&populate[prestador][fields][0]=nombre&populate[comercio][fields][0]=id');
+    const response = await axios.get(`${API_URL}/api/reservas?filters[comercio][id][$eq]=${COMERCIO_ID}&populate[prestador][fields][0]=nombre&populate[comercio][fields][0]=id`);
     return response.data;
   } catch (error) {
     console.error('Error fetching reservas:', error);
@@ -43,8 +61,8 @@ export const fetchReservas = createAsyncThunk('reservas/fetchReservas', async ()
 
 export const createReserva = createAsyncThunk('reservas/createReserva', async ({ nombreCliente, email, fecha, hora, prestador }, { dispatch }) => {
   try {
-    const response = await axios.post('http://localhost:1337/api/reservas', {
-      data: { nombreCliente, email, fecha, hora, prestador: { id: prestador }, comercio: { id: 1 } }
+    const response = await axios.post(`${API_URL}/api/reservas`, {
+      data: { nombreCliente, email, fecha, hora, prestador: { id: prestador }, comercio: { id: COMERCIO_ID } }
     });
     await dispatch(fetchReservas());
     return response.data;
@@ -56,7 +74,7 @@ export const createReserva = createAsyncThunk('reservas/createReserva', async ({
 
 export const deleteReserva = createAsyncThunk('reservas/deleteReserva', async (id, { dispatch }) => {
   try {
-    await axios.delete(`http://localhost:1337/api/reservas/${id}`);
+    await axios.delete(`${API_URL}/api/reservas/${id}`);
     await dispatch(fetchReservas());
     return id;
   } catch (error) {
@@ -67,7 +85,7 @@ export const deleteReserva = createAsyncThunk('reservas/deleteReserva', async (i
 
 export const registerUser = createAsyncThunk('user/register', async (userData) => {
   try {
-    const response = await axios.post('http://localhost:1337/api/auth/local/register', userData);
+    const response = await axios.post(`${API_URL}/api/auth/local/register`, userData);
     return response.data;
   } catch (error) {
     console.error('Error registering user:', error);
@@ -77,7 +95,7 @@ export const registerUser = createAsyncThunk('user/register', async (userData) =
 
 export const loginUser = createAsyncThunk('user/login', async (credentials) => {
   try {
-    const response = await axios.post('http://localhost:1337/api/auth/local', {
+    const response = await axios.post(`${API_URL}/api/auth/local`, {
       identifier: credentials.email,
       password: credentials.password,
     });
@@ -85,20 +103,6 @@ export const loginUser = createAsyncThunk('user/login', async (credentials) => {
     return response.data;
   } catch (error) {
     console.error('Error logging in:', error);
-    throw error;
-  }
-});
-
-const removeToken = () => {
-  localStorage.removeItem('token');
-};
-
-export const logoutUser = createAsyncThunk('user/logout', async () => {
-  try {
-    removeToken();
-    return null;  // Puedes devolver cualquier dato que desees al completar el logout
-  } catch (error) {
-    console.error('Error logging out:', error);
     throw error;
   }
 });
