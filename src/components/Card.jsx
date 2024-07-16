@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-
 import NuevaReserva from './NuevaReserva'; // Importa el componente de NuevaReserva aquí
 import { Checkbox, Radio, RadioGroup } from '@chakra-ui/react';
+
+const API_URL = process.env.REACT_APP_API_URL;
+const COMERCIO_ID = process.env.REACT_APP_COMERCIO_ID;
 
 const Card = ({ prestador, idPrestador }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,10 +26,10 @@ const Card = ({ prestador, idPrestador }) => {
   return (
     <div className="card">
       <div className="card__img">
-        <img src={`http://localhost:1337${prestador?.fondoPerfil.data.attributes.url}`} alt="Card Image" />
+        <img src={`${API_URL}${prestador?.fondoPerfil.data.attributes.url}`} alt="Card Image" />
       </div>
       <div className="card__avatar">
-        <img src={`http://localhost:1337${prestador?.avatar.data.attributes.url}`} alt="Avatar" />
+        <img src={`${API_URL}${prestador?.avatar.data.attributes.url}`} alt="Avatar" />
       </div>
       <div className="card__title titMai">{prestador?.nombre}</div>
       <div className="card__subtitle">{prestador?.servicio?.length > 3 ? prestador?.servicio : null}</div>
