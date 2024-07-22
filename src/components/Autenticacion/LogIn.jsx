@@ -16,7 +16,6 @@ import {
 import { loginUser } from '../redux/slice';
 import { Navigate } from 'react-router-dom';
 import InicioButton from '../Results/InicioButton';
- 
 export default function LoginCard() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
