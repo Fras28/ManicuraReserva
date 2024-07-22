@@ -21,7 +21,7 @@ const HorariosAdmin = () => {
   const dispatch = useDispatch();
   const prestadores = useSelector((state) => state.reservas.prestadores);
   const horariosPrestador = useSelector((state) => {
-    console.log('Estado actual:', state.reservas);
+    console.log("Estado actual:", state.reservas);
     return state.reservas.horariosPrestador;
   });
   const [selectedPrestador, setSelectedPrestador] = useState("");
@@ -47,13 +47,13 @@ const HorariosAdmin = () => {
 
   useEffect(() => {
     if (selectedPrestador) {
-      console.log('Fetching horarios para prestador:', selectedPrestador);
+      console.log("Fetching horarios para prestador:", selectedPrestador);
       setIsLoading(true);
       dispatch(fetchHorariosPrestador(selectedPrestador))
         .unwrap()
         .then(() => {
           setIsLoading(false);
-          console.log('Horarios fetched successfully');
+          console.log("Horarios fetched successfully");
         })
         .catch((error) => {
           setIsLoading(false);
@@ -75,25 +75,27 @@ const HorariosAdmin = () => {
       const formattedHorario = {
         ...nuevoHorario,
         horaInicio: formatTimeForBackend(nuevoHorario.horaInicio),
-        horaFin: formatTimeForBackend(nuevoHorario.horaFin)
+        horaFin: formatTimeForBackend(nuevoHorario.horaFin),
       };
       try {
-        await dispatch(addHorariosPrestador({
-          prestadorId: selectedPrestador,
-          horarios: [formattedHorario]
-        })).unwrap();
+        await dispatch(
+          addHorariosPrestador({
+            prestadorId: selectedPrestador,
+            horarios: [formattedHorario],
+          })
+        ).unwrap();
         // Después de agregar el horario, volvemos a cargar los horarios del prestador
         dispatch(fetchHorariosPrestador(selectedPrestador));
         setNuevoHorario({
-          diaSemana: '',
-          horaInicio: '',
-          horaFin: '',
-          fechaInicio: '',
-          fechaFin: '',
-          esRecurrente: true
+          diaSemana: "",
+          horaInicio: "",
+          horaFin: "",
+          fechaInicio: "",
+          fechaFin: "",
+          esRecurrente: true,
         });
       } catch (error) {
-        console.error('Error al agregar horario:', error);
+        console.error("Error al agregar horario:", error);
         // Aquí puedes mostrar un mensaje de error al usuario si lo deseas
       }
     }
@@ -125,42 +127,41 @@ const HorariosAdmin = () => {
     const end = new Date(fechaFin).toLocaleDateString();
     return `${start} - ${end}`;
   };
-console.log(horariosPrestador, " horariosPrestador");
-const renderHorariosPrestador = () => {
-  if (isLoading) {
-    return <Spinner />;
-  }
+  console.log(horariosPrestador, " horariosPrestador");
+  const renderHorariosPrestador = () => {
+    if (isLoading) {
+      return <Spinner />;
+    }
 
-  const horarios = horariosPrestador[selectedPrestador] || [];
-  console.log('Horarios del prestador seleccionado:', horarios);
+    const horarios = horariosPrestador[selectedPrestador] || [];
+    console.log("Horarios del prestador seleccionado:", horarios);
 
-  if (horarios.length === 0) {
-    return <Text>No hay horarios disponibles</Text>;
-  }
+    if (horarios.length === 0) {
+      return <Text>No hay horarios disponibles</Text>;
+    }
 
-  return horarios.map((horario) => (
-    <HStack key={horario.id} justifyContent="space-between" width="100%">
-      <VStack align="start">
-        <Text>{`${horario.attributes.diaSemana}: ${formatTimeForDisplay(
-          horario.attributes.horaInicio
-        )} - ${formatTimeForDisplay(horario.attributes.horaFin)}`}</Text>
-        <Text fontSize="sm" color="gray.500">
-          {formatDateRange(
-            horario.attributes.fechaInicio,
-            horario.attributes.fechaFin
-          )}
-        </Text>
-      </VStack>
-      <Button
-        onClick={() => handleDeleteHorario(horario.id)}
-        style={{ border: "solid red 2px" }}
-      >
-        Eliminar
-      </Button>
-    </HStack>
-  ));
-};
-
+    return horarios.map((horario) => (
+      <HStack key={horario.id} justifyContent="space-between" width="100%">
+        <VStack align="start">
+          <Text>{`${horario.attributes.diaSemana}: ${formatTimeForDisplay(
+            horario.attributes.horaInicio
+          )} - ${formatTimeForDisplay(horario.attributes.horaFin)}`}</Text>
+          <Text fontSize="sm" color="gray.500">
+            {formatDateRange(
+              horario.attributes.fechaInicio,
+              horario.attributes.fechaFin
+            )}
+          </Text>
+        </VStack>
+        <Button
+          onClick={() => handleDeleteHorario(horario.id)}
+          style={{ border: "solid red 2px" }}
+        >
+          Eliminar
+        </Button>
+      </HStack>
+    ));
+  };
 
   return (
     <Box>

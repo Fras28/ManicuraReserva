@@ -14,13 +14,14 @@ const Calendario = () => {
   const [reservasFiltradas, setReservasFiltradas] = useState({});
 
   useEffect(() => {
-    if (status === 'idle') {
+    if (status === "idle") {
       dispatch(fetchReservas());
     }
   }, [status, dispatch]);
 
   useEffect(() => {
-    if (status === 'succeeded' && reservas) { // Ensure reservas is defined
+    if (status === "succeeded" && reservas) {
+      // Ensure reservas is defined
       filtrarReservas(tipoCalendario);
     }
   }, [tipoCalendario, reservas, status]);
@@ -28,16 +29,16 @@ const Calendario = () => {
   const filtrarReservas = (tipo) => {
     const ahora = new Date();
     switch (tipo) {
-      case 'todas':
+      case "todas":
         agruparReservasPorFecha(reservas);
         break;
-      case 'semana':
+      case "semana":
         // Filter logic for semana
         break;
-      case 'mes':
+      case "mes":
         // Filter logic for mes
         break;
-      case 'ano':
+      case "ano":
         // Filter logic for ano
         break;
       default:

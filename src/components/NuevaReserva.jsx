@@ -10,8 +10,12 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
   const user = useSelector((state) => state?.reservas?.user);
   const reservas = useSelector((state) => state?.reservas?.reservas?.data);
   const prestadores = useSelector((state) => state?.reservas?.prestadores);
-  const maxReservasPorDia = useSelector((state) => state?.reservas?.maxReservasPorDia);
-  const maxReservasPorHora = useSelector((state) => state?.reservas?.maxReservasPorHora);
+  const maxReservasPorDia = useSelector(
+    (state) => state?.reservas?.maxReservasPorDia
+  );
+  const maxReservasPorHora = useSelector(
+    (state) => state?.reservas?.maxReservasPorHora
+  );
 
   let selectedPrice;
   try {
@@ -20,7 +24,6 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
     console.error("Error parsing precio:", error);
     selectedPrice = { precio: 0, tiempo: 0 };
   }
-
 
   const initialFormData = {
     nombreCliente: user ? user.username : "",
@@ -39,7 +42,9 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
           <button
             key={hour}
             type="button"
-            className={`horario-casilla ${selectedHour === hour ? "selected" : ""}`}
+            className={`horario-casilla ${
+              selectedHour === hour ? "selected" : ""
+            }`}
             onClick={() => onChange(hour)}
           >
             {hour}
@@ -80,43 +85,51 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
     setAvailableDates(dates);
   };
 
-const updateAvailableHours = () => {
-  if (!formData.prestador || !formData.fecha) return;
+  const updateAvailableHours = () => {
+    if (!formData.prestador || !formData.fecha) return;
 
-  const prestadorData = prestadores.find(p => p.id === formData.prestador);
-  const horariosConfigurados = prestadorData?.attributes?.horarios?.data || [];
-  const fechaSeleccionada = formData.fecha.toISOString().split("T")[0];
+    const prestadorData = prestadores.find((p) => p.id === formData.prestador);
+    const horariosConfigurados =
+      prestadorData?.attributes?.horarios?.data || [];
+    const fechaSeleccionada = formData.fecha.toISOString().split("T")[0];
 
-  // Filter horarios for the selected date
-  const horariosDelDia = horariosConfigurados.filter(horario => {
-    const fechaInicio = new Date(horario.attributes.fechaInicio);
-    const fechaFin = new Date(horario.attributes.fechaFin);
-    return fechaSeleccionada >= fechaInicio.toISOString().split("T")[0] &&
-           fechaSeleccionada <= fechaFin.toISOString().split("T")[0];
-  });
+    // Filter horarios for the selected date
+    const horariosDelDia = horariosConfigurados.filter((horario) => {
+      const fechaInicio = new Date(horario.attributes.fechaInicio);
+      const fechaFin = new Date(horario.attributes.fechaFin);
+      return (
+        fechaSeleccionada >= fechaInicio.toISOString().split("T")[0] &&
+        fechaSeleccionada <= fechaFin.toISOString().split("T")[0]
+      );
+    });
 
-  // Generate all possible hours for the day
-  const hours = horariosDelDia.reduce((acc, horario) => {
-    const horaInicio = parseInt(horario.attributes.horaInicio.split(":")[0], 10);
-    const horaFin = parseInt(horario.attributes.horaFin.split(":")[0], 10);
-    for (let i = horaInicio; i < horaFin; i++) {
-      const hour = `${i.toString().padStart(2, '0')}:00`;
-      acc.push(hour);
-    }
-    return acc;
-  }, []);
+    // Generate all possible hours for the day
+    const hours = horariosDelDia.reduce((acc, horario) => {
+      const horaInicio = parseInt(
+        horario.attributes.horaInicio.split(":")[0],
+        10
+      );
+      const horaFin = parseInt(horario.attributes.horaFin.split(":")[0], 10);
+      for (let i = horaInicio; i < horaFin; i++) {
+        const hour = `${i.toString().padStart(2, "0")}:00`;
+        acc.push(hour);
+      }
+      return acc;
+    }, []);
 
-  // Filter out reserved hours
-  const reservas = prestadorData?.attributes?.reservas?.data || [];
-  const reservedHours = reservas
-    .filter(reserva => reserva.attributes.fecha === fechaSeleccionada)
-    .map(reserva => reserva.attributes.hora.slice(0, 5)); // Extract HH:MM format
+    // Filter out reserved hours
+    const reservas = prestadorData?.attributes?.reservas?.data || [];
+    const reservedHours = reservas
+      .filter((reserva) => reserva.attributes.fecha === fechaSeleccionada)
+      .map((reserva) => reserva.attributes.hora.slice(0, 5)); // Extract HH:MM format
 
-  const availableHours = hours.filter(hour => !reservedHours.includes(hour));
+    const availableHours = hours.filter(
+      (hour) => !reservedHours.includes(hour)
+    );
 
-  setAvailableHours(availableHours);
-};
-  
+    setAvailableHours(availableHours);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -124,7 +137,6 @@ const updateAvailableHours = () => {
       setFormData((prev) => ({ ...prev, hora: "" }));
     }
   };
-
 
   const handleDateChange = (date) => {
     setFormData({ ...formData, fecha: date });
@@ -232,22 +244,22 @@ const updateAvailableHours = () => {
             </select>
           </div>
           <div>
-        <label>Fecha</label>
-        <ReactDatePicker
-          selected={formData.fecha}
-          onChange={handleDateChange}
-          includeDates={availableDates}
-          dateFormat="yyyy-MM-dd"
-        />
-      </div>
-      <div>
-        <label>Hora</label>
-        <HorarioCasillas
-          availableHours={availableHours}
-          selectedHour={formData.hora}
-          onChange={handleHoraChange}
-        />
-      </div>
+            <label>Fecha</label>
+            <ReactDatePicker
+              selected={formData.fecha}
+              onChange={handleDateChange}
+              includeDates={availableDates}
+              dateFormat="yyyy-MM-dd"
+            />
+          </div>
+          <div>
+            <label>Hora</label>
+            <HorarioCasillas
+              availableHours={availableHours}
+              selectedHour={formData.hora}
+              onChange={handleHoraChange}
+            />
+          </div>
           <div>
             <p style={{ margin: ".5rem 0" }}>Confirmar Reserva</p>
             <button
@@ -327,22 +339,22 @@ const updateAvailableHours = () => {
           </select>
         </div>
         <div>
-        <label>Fecha</label>
-        <ReactDatePicker
-          selected={formData.fecha}
-          onChange={handleDateChange}
-          includeDates={availableDates}
-          dateFormat="yyyy-MM-dd"
-        />
-      </div>
-      <div>
-        <label>Hora</label>
-        <HorarioCasillas
-          availableHours={availableHours}
-          selectedHour={formData.hora}
-          onChange={handleHoraChange}
-        />
-      </div>
+          <label>Fecha</label>
+          <ReactDatePicker
+            selected={formData.fecha}
+            onChange={handleDateChange}
+            includeDates={availableDates}
+            dateFormat="yyyy-MM-dd"
+          />
+        </div>
+        <div>
+          <label>Hora</label>
+          <HorarioCasillas
+            availableHours={availableHours}
+            selectedHour={formData.hora}
+            onChange={handleHoraChange}
+          />
+        </div>
         <div>
           <p style={{ margin: ".5rem 0" }}>Confirmar Reserva</p>
           <button

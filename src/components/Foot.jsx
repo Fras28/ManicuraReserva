@@ -37,6 +37,7 @@ const SocialButton = ({ children, label, href }) => {
       alignItems={'center'}
       justifyContent={'center'}
       transition={'background 0.3s ease'}
+      target='_blank'
       _hover={{
         bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
       }}>
@@ -117,13 +118,13 @@ const LargeWithAppLinksAndSocial = () => {
           align={{ md: 'center' }}>
           <Text>© 2023 Morton Desarrollos. All rights reserved</Text>
           <Stack direction={'row'} spacing={6}>
-            <SocialButton label={'Twitter'} href={'#'}>
+            {/* <SocialButton label={'Twitter'} href={'#'}>
               <FaTwitter />
             </SocialButton>
             <SocialButton label={'YouTube'} href={'#'}>
               <FaYoutube />
-            </SocialButton>
-            <SocialButton label={'Instagram'} href={'#'}>
+            </SocialButton> */}
+            <SocialButton label={'Instagram'} href={'https://www.instagram.com/maia.magical.world/'}>
               <FaInstagram />
             </SocialButton>
           </Stack>

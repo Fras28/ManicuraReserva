@@ -5,7 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 const InicioButton = () => {
   return (
     <Button as={RouterLink} to="/" colorScheme="blue">
-      Inicio
+      Ir inicio
     </Button>
   );
 };
