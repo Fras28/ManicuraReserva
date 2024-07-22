@@ -25,7 +25,6 @@ const Card = ({ prestador, idPrestador }) => {
   const handlePriceChange = (value) => {
     setSelectedPrice(value);
   }
-
   return (
     <div className="card">
       <div className="card__img">
@@ -39,21 +38,30 @@ const Card = ({ prestador, idPrestador }) => {
       <div className="card__title titMai">{prestador?.nombre}</div>
       <div className="card__subtitle">{prestador?.servicio?.length > 3 ? prestador?.servicio : null}</div>
       <div className="card__prices">
-        <RadioGroup onChange={handlePriceChange} value={selectedPrice}>
+      <RadioGroup onChange={handlePriceChange} value={selectedPrice}>
           {prestador?.valors.data.map(valor => (
-            <div key={valor.id}  style={{color:"wheat", borderBottom:"dashed 1px wheat", padding:"4px"}} className='titMai'>
-              <Radio value={JSON.stringify(valor.attributes)} ><b>{valor.attributes.nombre} <br/> </b>  ${valor.attributes.precio} {valor.attributes.tiempo? <div><b>duración:</b> valor.attributes.tiempo'</div> :null}</Radio>
+            <div key={valor.id} style={{color:"wheat", borderBottom:"dashed 1px wheat", padding:"4px"}} className='titMai'>
+              <Radio value={valor.id.toString()}>
+                <b>{valor.attributes.nombre} <br/> </b>  
+                ${valor.attributes.precio} 
+                {valor.attributes.tiempo && <div><b>duración:</b> {valor.attributes.tiempo}</div>}
+              </Radio>
             </div>
           ))}
         </RadioGroup>
       </div>
+      
       <div className="card__wrapper" >   
-        <Button  style={{backgroundColor:"#88B9BF", border:"solid #6E5E84 4px", borderRadius:"12px", color:"#6E5E84" }} size="lg" onClick={openModal}>
-        <BiCalendarPlus className="mr-2" size={24} /> Hacer Reserva
+        <Button  
+          style={{backgroundColor:"#88B9BF", border:"solid #6E5E84 4px", borderRadius:"12px", color:"#6E5E84" }} 
+          size="lg" 
+          onClick={openModal} 
+          isDisabled={!selectedPrice}
+        >
+          <BiCalendarPlus className="mr-2" size={24} /> Hacer Reserva
         </Button>
       </div>
 
-      {/* Modal para NuevaReserva */}
       {modalOpen && (
         <div className="modal">
           <div className="modal-content">
