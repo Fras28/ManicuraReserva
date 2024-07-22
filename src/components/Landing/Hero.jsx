@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Parallax } from 'react-parallax';
 import { Box, Button, Heading, Text, useMediaQuery } from '@chakra-ui/react';
 import { BiBasket } from 'react-icons/bi';
 import bgImg from "../assets/fondo.jpg";
 import Prestadores from '../Prestadores';
-import NuevaReserva from '../NuevaReserva';
 import Logo from "../assets/VARIANTE-11.png"
 
 const HeroSection = () => {
-  const [modalOpen, setModalOpen] = useState(false);
   const [isMobile] = useMediaQuery("(max-width: 768px)");
+  const prestadoresRef = useRef(null);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
+  const scrollToPrestadores = () => {
+    prestadoresRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   const content = (
@@ -38,7 +33,7 @@ const HeroSection = () => {
         <Text fontSize="32px" mb="6" className='titMai'>
           Maia Magical World
         </Text>
-        <Button  style={{backgroundColor:"#88B9BF", border:"solid #6E5E84 4px", borderRadius:"12px", color:"#6E5E84" }} size="lg" leftIcon={<BiBasket />} onClick={openModal}>
+        <Button  style={{backgroundColor:"#88B9BF", border:"solid #6E5E84 4px", borderRadius:"12px", color:"#6E5E84" }} size="lg" leftIcon={<BiBasket />} onClick={scrollToPrestadores}>
           Hacer Reserva
         </Button>
         <Text fontSize="l" mb="6">
@@ -82,20 +77,11 @@ const HeroSection = () => {
           {content}
         </Parallax>
       )}
-      <Box mt={10}>
+      <Box mt={10} ref={prestadoresRef}>
         <Prestadores />
       </Box>
-      {modalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>&times;</span>
-            <NuevaReserva />
-          </div>
-        </div>
-      )}
     </>
   );
 };
 
 export default HeroSection;
-

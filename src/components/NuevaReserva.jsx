@@ -10,12 +10,8 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
   const user = useSelector((state) => state?.reservas?.user);
   const reservas = useSelector((state) => state?.reservas?.reservas?.data);
   const prestadores = useSelector((state) => state?.reservas?.prestadores);
-  const maxReservasPorDia = useSelector(
-    (state) => state?.reservas?.maxReservasPorDia
-  );
-  const maxReservasPorHora = useSelector(
-    (state) => state?.reservas?.maxReservasPorHora
-  );
+  const maxReservasPorDia = useSelector((state) => state?.reservas?.maxReservasPorDia);
+  const maxReservasPorHora = useSelector((state) => state?.reservas?.maxReservasPorHora);
 
   let selectedPrice;
   try {
@@ -25,14 +21,15 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
     selectedPrice = { precio: 0, tiempo: 0 };
   }
 
+
   const initialFormData = {
     nombreCliente: user ? user.username : "",
     email: user ? user.email : "",
     fecha: "",
     hora: "",
-    prestador: prestador ? prestador.idPrestador : "",
-    precio: selectedPrice.precio,
-    duracion: selectedPrice.tiempo,
+    prestador: prestador?.idPrestador,
+    precio: selectedPrice?.precio,
+    duracion: selectedPrice?.tiempo,
   };
 
   const HorarioCasillas = ({ availableHours, selectedHour, onChange }) => {
@@ -42,9 +39,7 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
           <button
             key={hour}
             type="button"
-            className={`horario-casilla ${
-              selectedHour === hour ? "selected" : ""
-            }`}
+            className={`horario-casilla ${selectedHour === hour ? "selected" : ""}`}
             onClick={() => onChange(hour)}
           >
             {hour}
@@ -54,7 +49,6 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
       </div>
     );
   };
-
   const [formData, setFormData] = useState(initialFormData);
   const [messages, setMessages] = useState({ success: "", error: "" });
   const [availableDates, setAvailableDates] = useState([]);
@@ -86,28 +80,43 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
     setAvailableDates(dates);
   };
 
-  const updateAvailableHours = () => {
-    if (!formData.prestador || !formData.fecha) return;
+const updateAvailableHours = () => {
+  if (!formData.prestador || !formData.fecha) return;
 
-    const hours = [
-      "08:00",
-      "09:00",
-      "10:00",
-      "11:00",
-      "12:00",
-      "13:00",
-      "16:00",
-      "17:00",
-      "18:00",
-      "19:00",
-      "20:00",
-    ];
-    const availableHours = hours.filter(
-      (hour) => !isHourReserved(formData.fecha, `${hour}:00.000`)
-    );
-    setAvailableHours(availableHours);
-  };
+  const prestadorData = prestadores.find(p => p.id === formData.prestador);
+  const horariosConfigurados = prestadorData?.attributes?.horarios?.data || [];
+  const fechaSeleccionada = formData.fecha.toISOString().split("T")[0];
 
+  // Filter horarios for the selected date
+  const horariosDelDia = horariosConfigurados.filter(horario => {
+    const fechaInicio = new Date(horario.attributes.fechaInicio);
+    const fechaFin = new Date(horario.attributes.fechaFin);
+    return fechaSeleccionada >= fechaInicio.toISOString().split("T")[0] &&
+           fechaSeleccionada <= fechaFin.toISOString().split("T")[0];
+  });
+
+  // Generate all possible hours for the day
+  const hours = horariosDelDia.reduce((acc, horario) => {
+    const horaInicio = parseInt(horario.attributes.horaInicio.split(":")[0], 10);
+    const horaFin = parseInt(horario.attributes.horaFin.split(":")[0], 10);
+    for (let i = horaInicio; i < horaFin; i++) {
+      const hour = `${i.toString().padStart(2, '0')}:00`;
+      acc.push(hour);
+    }
+    return acc;
+  }, []);
+
+  // Filter out reserved hours
+  const reservas = prestadorData?.attributes?.reservas?.data || [];
+  const reservedHours = reservas
+    .filter(reserva => reserva.attributes.fecha === fechaSeleccionada)
+    .map(reserva => reserva.attributes.hora.slice(0, 5)); // Extract HH:MM format
+
+  const availableHours = hours.filter(hour => !reservedHours.includes(hour));
+
+  setAvailableHours(availableHours);
+};
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -115,6 +124,7 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
       setFormData((prev) => ({ ...prev, hora: "" }));
     }
   };
+
 
   const handleDateChange = (date) => {
     setFormData({ ...formData, fecha: date });
@@ -145,7 +155,6 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
       });
     }
   };
-
   const handlePaymentSuccess = async () => {
     try {
       const horaFormateada = `${formData.hora}:00.000`;
@@ -173,22 +182,17 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
   };
 
   const isDayFull = (date) => {
-    // Ensure date is a valid Date object
     const validDate = date instanceof Date ? date : new Date(date);
-
     if (isNaN(validDate.getTime())) {
       console.error("Invalid date:", date);
       return false;
     }
-
     const dateString = validDate.toISOString().split("T")[0];
-
     const reservasDelDia = reservas?.filter(
       (reserva) =>
         reserva.attributes.fecha === dateString &&
         reserva.attributes.prestador.data.id === formData.prestador
     );
-
     return reservasDelDia?.length >= maxReservasPorDia;
   };
 
@@ -228,28 +232,22 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
             </select>
           </div>
           <div>
-            <label>
-              Fecha<span style={{ color: "red" }}>*</span>:
-            </label>
-            <ReactDatePicker
-              selected={formData.fecha}
-              onChange={handleDateChange}
-              includeDates={availableDates}
-              dateFormat="yyyy-MM-dd"
-              placeholderText="Seleccionar fecha"
-              required
-            />
-          </div>
-          <div>
-            <label>
-              Hora<span style={{ color: "red" }}>*</span>:
-            </label>
-            <HorarioCasillas
-              availableHours={availableHours}
-              selectedHour={formData.hora}
-              onChange={handleHoraChange}
-            />
-          </div>
+        <label>Fecha</label>
+        <ReactDatePicker
+          selected={formData.fecha}
+          onChange={handleDateChange}
+          includeDates={availableDates}
+          dateFormat="yyyy-MM-dd"
+        />
+      </div>
+      <div>
+        <label>Hora</label>
+        <HorarioCasillas
+          availableHours={availableHours}
+          selectedHour={formData.hora}
+          onChange={handleHoraChange}
+        />
+      </div>
           <div>
             <p style={{ margin: ".5rem 0" }}>Confirmar Reserva</p>
             <button
@@ -329,28 +327,22 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
           </select>
         </div>
         <div>
-          <label>
-            Fecha<span style={{ color: "red" }}>*</span>:
-          </label>
-          <ReactDatePicker
-            selected={formData.fecha}
-            onChange={handleDateChange}
-            includeDates={availableDates}
-            dateFormat="yyyy-MM-dd"
-            placeholderText="Seleccionar fecha"
-            required
-          />
-        </div>
-        <div>
-          <label>
-            Hora<span style={{ color: "red" }}>*</span>:
-          </label>
-          <HorarioCasillas
-            availableHours={availableHours}
-            selectedHour={formData.hora}
-            onChange={handleHoraChange}
-          />
-        </div>
+        <label>Fecha</label>
+        <ReactDatePicker
+          selected={formData.fecha}
+          onChange={handleDateChange}
+          includeDates={availableDates}
+          dateFormat="yyyy-MM-dd"
+        />
+      </div>
+      <div>
+        <label>Hora</label>
+        <HorarioCasillas
+          availableHours={availableHours}
+          selectedHour={formData.hora}
+          onChange={handleHoraChange}
+        />
+      </div>
         <div>
           <p style={{ margin: ".5rem 0" }}>Confirmar Reserva</p>
           <button

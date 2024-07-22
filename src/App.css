@@ -274,7 +274,6 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-
 }
 
 .nueva-reserva-form button:disabled {
@@ -438,7 +437,6 @@ margin-top: 0 !important;
 }
 
 .card__avatar {
-  position: absolute;
   width: 114px;
   height: 114px;
   background: var(--bg-color);
@@ -456,7 +454,6 @@ margin-top: 0 !important;
 }
 
 .card__title {
-  margin-top: 150px;
   font-weight: 500;
   font-size: 18px;
   color: goldenrod;
