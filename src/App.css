@@ -388,6 +388,7 @@
   align-items: center;
 }
 
+
 .css-1bpnzr3 {
 margin-top: 0 !important;
 }
@@ -518,6 +519,7 @@ margin-top: 0 !important;
   width: 80%;
   max-width: 600px;
   position: relative;
+  bottom: 30%;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -722,6 +724,11 @@ margin-top: 0 !important;
   }
   .LogoWebHistoria{
     display: block;
+  }
+  .modal-content {
+
+    bottom: 0;
+
   }
  
 }

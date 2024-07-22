@@ -27,7 +27,6 @@ const HorariosAdmin = () => {
   const [selectedPrestador, setSelectedPrestador] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [nuevoHorario, setNuevoHorario] = useState({
-    diaSemana: "",
     horaInicio: "",
     horaFin: "",
     fechaInicio: "",
@@ -35,15 +34,6 @@ const HorariosAdmin = () => {
     esRecurrente: true,
   });
 
-  const diasDeSemana = [
-    "Lunes",
-    "Martes",
-    "Miercoles",
-    "Jueves",
-    "Viernes",
-    "Sabado",
-    "Domingo",
-  ];
 
   useEffect(() => {
     if (selectedPrestador) {
@@ -143,7 +133,7 @@ const HorariosAdmin = () => {
     return horarios.map((horario) => (
       <HStack key={horario.id} justifyContent="space-between" width="100%">
         <VStack align="start">
-          <Text>{`${horario.attributes.diaSemana}: ${formatTimeForDisplay(
+          <Text>{` ${formatTimeForDisplay(
             horario.attributes.horaInicio
           )} - ${formatTimeForDisplay(horario.attributes.horaFin)}`}</Text>
           <Text fontSize="sm" color="gray.500">
@@ -185,7 +175,7 @@ const HorariosAdmin = () => {
           <Text fontWeight="bold" mt={4}>
             Agregar nuevo horario
           </Text>
-          <Select
+          {/* <Select
             placeholder="Día de la semana"
             value={nuevoHorario.diaSemana}
             onChange={(e) =>
@@ -197,7 +187,7 @@ const HorariosAdmin = () => {
                 {dia}
               </option>
             ))}
-          </Select>
+          </Select> */}
           <Input
             type="time"
             value={nuevoHorario.horaInicio}

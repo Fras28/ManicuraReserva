@@ -87,13 +87,14 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
 
   const updateAvailableHours = () => {
     if (!formData.prestador || !formData.fecha) return;
-
+  
+    // Encuentra los datos del prestador
     const prestadorData = prestadores.find((p) => p.id === formData.prestador);
     const horariosConfigurados =
       prestadorData?.attributes?.horarios?.data || [];
     const fechaSeleccionada = formData.fecha.toISOString().split("T")[0];
-
-    // Filter horarios for the selected date
+  
+    // Filtra los horarios para la fecha seleccionada
     const horariosDelDia = horariosConfigurados.filter((horario) => {
       const fechaInicio = new Date(horario.attributes.fechaInicio);
       const fechaFin = new Date(horario.attributes.fechaFin);
@@ -102,13 +103,10 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
         fechaSeleccionada <= fechaFin.toISOString().split("T")[0]
       );
     });
-
-    // Generate all possible hours for the day
+  
+    // Genera todas las horas posibles para el día
     const hours = horariosDelDia.reduce((acc, horario) => {
-      const horaInicio = parseInt(
-        horario.attributes.horaInicio.split(":")[0],
-        10
-      );
+      const horaInicio = parseInt(horario.attributes.horaInicio.split(":")[0], 10);
       const horaFin = parseInt(horario.attributes.horaFin.split(":")[0], 10);
       for (let i = horaInicio; i < horaFin; i++) {
         const hour = `${i.toString().padStart(2, "0")}:00`;
@@ -116,19 +114,20 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
       }
       return acc;
     }, []);
-
-    // Filter out reserved hours
-    const reservas = prestadorData?.attributes?.reservas?.data || [];
-    const reservedHours = reservas
-      .filter((reserva) => reserva.attributes.fecha === fechaSeleccionada)
-      .map((reserva) => reserva.attributes.hora.slice(0, 5)); // Extract HH:MM format
-
-    const availableHours = hours.filter(
-      (hour) => !reservedHours.includes(hour)
-    );
-
-    setAvailableHours(availableHours);
+  
+    // Ordena las horas de menor a mayor
+    const sortedHours = hours.sort((a, b) => {
+      const timeA = parseInt(a.split(':')[0]) * 60 + parseInt(a.split(':')[1]);
+      const timeB = parseInt(b.split(':')[0]) * 60 + parseInt(b.split(':')[1]);
+      return timeA - timeB;
+    });
+  
+    // Actualiza el estado o realiza alguna acción con `sortedHours`
+    // Ejemplo: actualiza el estado en un componente React
+    setAvailableHours(sortedHours);
   };
+  
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
