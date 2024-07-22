@@ -234,6 +234,33 @@ export const loginUser = createAsyncThunk("user/login", async (credentials) => {
   }
 });
 
+export const createPrestador = createAsyncThunk(
+  'prestador/create',
+  async (prestadorData, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${API_URL}/api/prestadores`, 
+        { data: prestadorData },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            // Incluye aquí cualquier header adicional que necesites, como token de autenticación
+            // 'Authorization': `Bearer ${token}`,
+          },
+        }
+      );
+      
+      // Después de crear exitosamente, disparamos la acción para obtener todos los prestadores
+      dispatch(fetchPrestadores());
+      
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
+
 export const setHorariosPrestador = createAsyncThunk(
   "reservas/setHorariosPrestador",
   async ({ prestadorId, horarios }) => {
@@ -430,18 +457,27 @@ const reservasSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
+      .addCase(createPrestador.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(createPrestador.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+      })
+      .addCase(createPrestador.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
       .addCase(fetchPrestadores.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading';
       })
       .addCase(fetchPrestadores.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.status = 'succeeded';
         state.prestadores = action.payload.data;
       })
       .addCase(fetchPrestadores.rejected, (state, action) => {
-        state.status = "failed";
+        state.status = 'failed';
         state.error = action.error.message;
       })
-
       .addCase(fetchReservas.pending, (state) => {
         state.status = "loading";
       })

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReservas, deleteReserva } from "../redux/slice";
-import { Button, Checkbox, IconButton } from "@chakra-ui/react";
+import { Button, Checkbox, IconButton, Select } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import "../../App.css";
-
+import PrestadorForm from "./PrestadorForm.jsx"
 const Calendario = () => {
   const dispatch = useDispatch();
   const reservas = useSelector((state) => state.reservas?.reservas?.data);
+  const prestadores = useSelector((state) => state.reservas?.prestadores);
   const status = useSelector((state) => state.reservas?.status);
 
   const [tipoCalendario, setTipoCalendario] = useState("todas");
+  const [prestadorSeleccionado, setPrestadorSeleccionado] = useState("");
   const [reservasFiltradas, setReservasFiltradas] = useState({});
 
   useEffect(() => {
@@ -21,16 +23,20 @@ const Calendario = () => {
 
   useEffect(() => {
     if (status === "succeeded" && reservas) {
-      // Ensure reservas is defined
-      filtrarReservas(tipoCalendario);
+      filtrarReservas(tipoCalendario, prestadorSeleccionado);
     }
-  }, [tipoCalendario, reservas, status]);
+  }, [tipoCalendario, reservas, prestadorSeleccionado, status]);
 
-  const filtrarReservas = (tipo) => {
+  const filtrarReservas = (tipo, prestador) => {
     const ahora = new Date();
+    const reservasFiltradas = reservas?.filter(
+      (reserva) =>
+        !prestador || reserva.attributes.prestador.data.id === prestador
+    );
+
     switch (tipo) {
       case "todas":
-        agruparReservasPorFecha(reservas);
+        agruparReservasPorFecha(reservasFiltradas);
         break;
       case "semana":
         // Filter logic for semana
@@ -126,6 +132,7 @@ const Calendario = () => {
 
   return (
     <div className="calendario-container">
+      {/* <PrestadorForm/> */}
       <h1>Calendario de Reservas</h1>
       <div className="calendario-buttons">
         <button onClick={() => setTipoCalendario("todas")}>Todas</button>
@@ -133,6 +140,17 @@ const Calendario = () => {
         <button onClick={() => setTipoCalendario("mes")}>Mes</button>
         <button onClick={() => setTipoCalendario("ano")}>Año</button>
       </div>
+      <Select
+        placeholder="Seleccionar prestador"
+        value={prestadorSeleccionado}
+        onChange={(e) => setPrestadorSeleccionado(parseInt(e.target.value))}
+      >
+        {prestadores?.map((prestador) => (
+          <option key={prestador.id} value={prestador.id}>
+            {prestador.attributes.nombre}
+          </option>
+        ))}
+      </Select>
       <div className="calendario-filtrado">
         {fechasOrdenadas.map((fecha) => (
           <div key={fecha}>

@@ -21,7 +21,6 @@ const HorariosAdmin = () => {
   const dispatch = useDispatch();
   const prestadores = useSelector((state) => state.reservas.prestadores);
   const horariosPrestador = useSelector((state) => {
-    console.log("Estado actual:", state.reservas);
     return state.reservas.horariosPrestador;
   });
   const [selectedPrestador, setSelectedPrestador] = useState("");
@@ -117,14 +116,14 @@ const HorariosAdmin = () => {
     const end = new Date(fechaFin).toLocaleDateString();
     return `${start} - ${end}`;
   };
-  console.log(horariosPrestador, " horariosPrestador");
+ 
   const renderHorariosPrestador = () => {
     if (isLoading) {
       return <Spinner />;
     }
 
     const horarios = horariosPrestador[selectedPrestador] || [];
-    console.log("Horarios del prestador seleccionado:", horarios);
+
 
     if (horarios.length === 0) {
       return <Text>No hay horarios disponibles</Text>;
