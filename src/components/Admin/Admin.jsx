@@ -8,7 +8,7 @@ import HorariosAdmin from "./HorariosAdmin";
 const Admin = () =>{
 
     return(
-        <div>
+        <div style={{padding:"1rem"}}> 
             <Calendario/>
             <HorariosAdmin/>
         </div>

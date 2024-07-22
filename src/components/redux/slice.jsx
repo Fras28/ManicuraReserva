@@ -160,32 +160,41 @@ export const updateHorariosPrestador = createAsyncThunk(
 
 export const loginUser = createAsyncThunk('user/login', async (credentials) => {
   try {
-    const response = await axios.post(`${API_URL}/api/auth/local`, {
+    // Paso 1: Autenticación
+    const loginResponse = await axios.post(`${API_URL}/api/auth/local`, {
       identifier: credentials.email,
       password: credentials.password,
     });
 
-    const token = response.data.jwt;
+    const token = loginResponse.data.jwt;
     localStorage.setItem('token', token);
 
-    // Obtener información adicional del usuario, incluyendo su rol
+    // Paso 2: Obtener información del usuario
     const userResponse = await axios.get(`${API_URL}/api/users/me?populate=role`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    const user = userResponse.data;
-console.log(user, "info antes de cargarla");
-    // Asegurarnos que el role venga en la respuesta
-    const role = user.role; 
+    const userData = userResponse.data;
+    console.log("User data:", userData);
 
-    return { ...user, role, token };
+    // Paso 3: Asegurarse de que el rol esté incluido
+    const role = userData.role ? userData.role.name : null;
+    console.log("User role:", role);
+
+    // Paso 4: Devolver los datos del usuario, incluyendo el token y el rol
+    return { 
+      ...userData, 
+      token, 
+      role 
+    };
   } catch (error) {
     console.error('Error logging in:', error);
     throw error;
   }
 });
+
 export const setHorariosPrestador = createAsyncThunk(
   'reservas/setHorariosPrestador',
   async ({ prestadorId, horarios }) => {

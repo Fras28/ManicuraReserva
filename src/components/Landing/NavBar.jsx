@@ -241,22 +241,23 @@ const WithSubnavigation = () => {
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} align={'center'}>
           <img src={Logo} style={{ height: "80px" }} alt="Logo" />
           
-          {role?.name === 'Admin' && (
-            <Tooltip label="Panel de Administrador" placement="bottom">
-              <IconButton
-                as={Link}
-                to="/admin"
-                icon={<SettingsIcon />}
-                variant="ghost"
-                color="#6C442B"
-                aria-label="Admin Panel"
-                ml={2}
-                _hover={{
-                  bg: 'pink.50',
-                }}
-              />
-            </Tooltip>
-          )}
+          
+        {role === 'Admin' && (
+          <Tooltip label="Panel de Administrador" placement="bottom">
+            <IconButton
+              as={Link}
+              to="/admin"
+              icon={<SettingsIcon />}
+              variant="ghost"
+              color="#6C442B"
+              aria-label="Admin Panel"
+              ml={2}
+              _hover={{
+                bg: 'pink.50',
+              }}
+            />
+          </Tooltip>
+        )}
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />

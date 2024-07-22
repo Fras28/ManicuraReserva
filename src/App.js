@@ -18,7 +18,7 @@ import Admin from './components/Admin/Admin.jsx';
 const ProtectedRoute = ({ children }) => {
   const role = useSelector(state => state?.reservas?.role);
   
-  if (role?.name !== "Admin") {
+  if (role !== "Admin") {
     return <Navigate to="/login" replace />;
   }
   
