@@ -652,6 +652,13 @@ margin-top: 0 !important;
   background-color: #E5B9D7;
 }
 
+
+
+.css-cs9aj7{
+  background-color: #88b9bf70;
+  border-radius: 12px;
+  padding: 1rem;
+}
 @media (max-width: 750px) {
   .calendFechas {
     flex-direction: column;

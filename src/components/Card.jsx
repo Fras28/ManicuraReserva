@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import NuevaReserva from './NuevaReserva'; // Importa el componente de NuevaReserva aquí
-import { Checkbox, Radio, RadioGroup } from '@chakra-ui/react';
+import { Button, Checkbox, Radio, RadioGroup } from '@chakra-ui/react';
 import maia from "./assets/maia.png"
 import fondo from "./assets/bgCard.jpg"
+import { BiCalendarPlus } from 'react-icons/bi';
 
 const API_URL = process.env.REACT_APP_API_URL;
 const COMERCIO_ID = process.env.REACT_APP_COMERCIO_ID;
@@ -46,8 +47,10 @@ const Card = ({ prestador, idPrestador }) => {
           ))}
         </RadioGroup>
       </div>
-      <div className="card__wrapper" >
-        <button className="card__btn" onClick={openModal} disabled={!selectedPrice}  style={{ backgroundColor: "#e5b9d7", border: "solid #2E1F13 4px", borderRadius: "12px"}}>Reservar</button>
+      <div className="card__wrapper" >   
+        <Button  style={{backgroundColor:"#88B9BF", border:"solid #6E5E84 4px", borderRadius:"12px", color:"#6E5E84" }} size="lg" onClick={openModal}>
+        <BiCalendarPlus className="mr-2" size={24} /> Hacer Reserva
+        </Button>
       </div>
 
       {/* Modal para NuevaReserva */}

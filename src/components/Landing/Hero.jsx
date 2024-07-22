@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Parallax } from 'react-parallax';
 import { Box, Button, Heading, Text, useMediaQuery } from '@chakra-ui/react';
-import { BiBasket } from 'react-icons/bi';
+import { BiBasket, BiCalendarPlus } from 'react-icons/bi';
 import bgImg from "../assets/fondo.jpg";
 import Prestadores from '../Prestadores';
 import Logo from "../assets/VARIANTE-11.png"
@@ -33,8 +33,8 @@ const HeroSection = () => {
         <Text fontSize="32px" mb="6" className='titMai'>
           Maia Magical World
         </Text>
-        <Button  style={{backgroundColor:"#88B9BF", border:"solid #6E5E84 4px", borderRadius:"12px", color:"#6E5E84" }} size="lg" leftIcon={<BiBasket />} onClick={scrollToPrestadores}>
-          Hacer Reserva
+        <Button  style={{backgroundColor:"#88B9BF", border:"solid #6E5E84 4px", borderRadius:"12px", color:"#6E5E84" }} size="lg" onClick={scrollToPrestadores}>
+        <BiCalendarPlus className="mr-2" size={24} /> Hacer Reserva
         </Button>
         <Text fontSize="l" mb="6">
           Tarot | Vitki | Carta Natal
