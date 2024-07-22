@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Parallax } from 'react-parallax';
 import { Box, useMediaQuery } from '@chakra-ui/react';
-import bgImg from "../assets/fontoTest.jpeg";
+import bgImg from "../assets/bgComents.jpeg";
 import WithSpeechBubbles from './Testimonios';
 import NuevaReserva from '../NuevaReserva';
 
@@ -28,6 +28,7 @@ const Testim = () => {
           display="flex"
           justifyContent="center"
           alignItems="center"
+          borderRadius="12px"
           className="testim-mobile-container"
         >
           <WithSpeechBubbles />
