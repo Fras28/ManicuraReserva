@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import ReactDatePicker from "react-datepicker";
 import CheckoutPro from "../MercadoPago/PaymentForm";
 
-const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
+const NuevaReserva = ({ prestador, precio  }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.reservas?.user);
   const reservas = useSelector((state) => state?.reservas?.reservas?.data);
@@ -22,23 +22,21 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
     selectedPrice = JSON.parse(precio);
   } catch (error) {
     console.error("Error parsing precio:", error);
-    selectedPrice = { precio: 0, tiempo: 0 };
   }
 
   const initialFormData = {
     nombreCliente: user ? user.username : "",
     email: user ? user.email : "",
-    fecha: "",
+    fecha:"",
     hora: "",
     prestador: prestador?.idPrestador,
-    precio: selectedPrice?.precio,
-    duracion: selectedPrice?.tiempo,
+    precio: selectedPrice,
   };
-
+console.log(selectedPrice,"selectedPrice");
   const HorarioCasillas = ({ availableHours, selectedHour, onChange }) => {
     return (
       <div className="horario-casillas">
-        {availableHours.map((hour) => (
+        {availableHours?.map((hour) => (
           <button
             key={hour}
             type="button"
@@ -54,6 +52,7 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
       </div>
     );
   };
+
   const [formData, setFormData] = useState(initialFormData);
   const [messages, setMessages] = useState({ success: "", error: "" });
   const [availableDates, setAvailableDates] = useState([]);
@@ -67,6 +66,11 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
     updateAvailableHours();
   }, [formData.fecha, formData.prestador, reservas]);
 
+
+
+
+
+  
   const updateAvailableDates = () => {
     if (!formData.prestador) return;
 
@@ -88,16 +92,35 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
   const updateAvailableHours = () => {
     if (!formData.prestador || !formData.fecha) return;
   
+    // Verifica que formData.fecha es una instancia válida de Date
+    const selectedDate = new Date(formData.fecha);
+    if (isNaN(selectedDate)) {
+      console.error('Fecha seleccionada no es válida', formData.fecha);
+      return;
+    }
+  
     // Encuentra los datos del prestador
     const prestadorData = prestadores.find((p) => p.id === formData.prestador);
-    const horariosConfigurados =
-      prestadorData?.attributes?.horarios?.data || [];
-    const fechaSeleccionada = formData.fecha.toISOString().split("T")[0];
+    if (!prestadorData) {
+      console.error('No se encontraron datos para el prestador', formData.prestador);
+      return;
+    }
+  
+    const horariosConfigurados = prestadorData.attributes?.horarios?.data || [];
+    const reservas = prestadorData.attributes?.reservas?.data || [];
+    const fechaSeleccionada = selectedDate.toISOString().split("T")[0];
   
     // Filtra los horarios para la fecha seleccionada
     const horariosDelDia = horariosConfigurados.filter((horario) => {
-      const fechaInicio = new Date(horario.attributes.fechaInicio);
-      const fechaFin = new Date(horario.attributes.fechaFin);
+      const fechaInicio = new Date(horario.attributes.fecha_inicio);
+      const fechaFin = new Date(horario.attributes.fecha_fin);
+  
+      // Verifica que las fechas son válidas
+      if (isNaN(fechaInicio) || isNaN(fechaFin)) {
+        console.error('Fecha inválida en los horarios configurados', horario);
+        return false;
+      }
+  
       return (
         fechaSeleccionada >= fechaInicio.toISOString().split("T")[0] &&
         fechaSeleccionada <= fechaFin.toISOString().split("T")[0]
@@ -106,8 +129,8 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
   
     // Genera todas las horas posibles para el día
     const hours = horariosDelDia.reduce((acc, horario) => {
-      const horaInicio = parseInt(horario.attributes.horaInicio.split(":")[0], 10);
-      const horaFin = parseInt(horario.attributes.horaFin.split(":")[0], 10);
+      const horaInicio = parseInt(horario.attributes.hora_inicio.split(":")[0], 10);
+      const horaFin = parseInt(horario.attributes.hora_fin.split(":")[0], 10);
       for (let i = horaInicio; i < horaFin; i++) {
         const hour = `${i.toString().padStart(2, "0")}:00`;
         acc.push(hour);
@@ -115,8 +138,15 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
       return acc;
     }, []);
   
+    // Filtra las horas que ya han sido reservadas
+    const reservedHours = reservas
+      .filter((reserva) => reserva.attributes.fecha === fechaSeleccionada)
+      .map((reserva) => reserva.attributes.hora.slice(0, 5));
+  
+    const availableHours = hours.filter((hour) => !reservedHours.includes(hour));
+  
     // Ordena las horas de menor a mayor
-    const sortedHours = hours.sort((a, b) => {
+    const sortedHours = availableHours.sort((a, b) => {
       const timeA = parseInt(a.split(':')[0]) * 60 + parseInt(a.split(':')[1]);
       const timeB = parseInt(b.split(':')[0]) * 60 + parseInt(b.split(':')[1]);
       return timeA - timeB;
@@ -126,9 +156,8 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
     // Ejemplo: actualiza el estado en un componente React
     setAvailableHours(sortedHours);
   };
-  
-  
 
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -157,7 +186,14 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
     }
     try {
       const horaFormateada = `${formData.hora}:00.000`;
-      await dispatch(createReserva({ ...formData, hora: horaFormateada }));
+      const fechaFormateada = formData.fecha.toISOString().split("T")[0];
+      await dispatch(
+        createReserva({
+          ...formData,
+          hora: horaFormateada,
+          fecha: fechaFormateada,
+        })
+      );
       setMessages({ success: "¡Reserva realizada con Éxito!", error: "" });
     } catch (error) {
       setMessages({
@@ -166,10 +202,18 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
       });
     }
   };
+
   const handlePaymentSuccess = async () => {
     try {
       const horaFormateada = `${formData.hora}:00.000`;
-      await dispatch(createReserva({ ...formData, hora: horaFormateada }));
+      const fechaFormateada = formData.fecha.toISOString().split("T")[0];
+      await dispatch(
+        createReserva({
+          ...formData,
+          hora: horaFormateada,
+          fecha: fechaFormateada,
+        })
+      );
       setMessages({ success: "¡Reserva realizada con Éxito!", error: "" });
     } catch (error) {
       setMessages({
@@ -185,7 +229,10 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
       (p) => p.id === formData.prestador
     );
     const nombrePrestador = prestadorSeleccionado?.attributes?.nombre || "";
-    const message = `¡Hola! Quiero confirmar mi reserva:\n\nNombre: ${formData.nombreCliente}\nEmail: ${formData.email}\nFecha: ${formData.fecha}\nHora: ${formData.hora}\nPrestador: ${nombrePrestador}\nPrecio: $${selectedPrice.precio}\nDuración: ${selectedPrice.tiempo} minutos`;
+    const fechaFormateada = formData.fecha
+      ? formData.fecha.toISOString().split("T")[0]
+      : "";
+    const message = `¡Hola! Quiero confirmar mi reserva:\n\nNombre: ${formData.nombreCliente}\nEmail: ${formData.email}\nFecha: ${fechaFormateada}\nHora: ${formData.hora}\nPrestador: ${nombrePrestador}\nPrecio: $${selectedPrice.precio}\nDuración: ${selectedPrice.tiempo} minutos`;
     const whatsappURL = `https://wa.me/${telefonoPrestador}?text=${encodeURIComponent(
       message
     )}`;
@@ -208,7 +255,8 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
   };
 
   const isHourReserved = (date, hour) => {
-    const dateString = date.toISOString().split("T")[0];
+    const dateString =
+      date instanceof Date ? date.toISOString().split("T")[0] : date;
     return reservas?.some(
       (reserva) =>
         reserva.attributes.fecha === dateString &&
@@ -258,6 +306,9 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
               selectedHour={formData.hora}
               onChange={handleHoraChange}
             />
+            {availableHours.length === 0 && (
+              <p>No hay horarios disponibles para la fecha seleccionada.</p>
+            )}
           </div>
           <div>
             <p style={{ margin: ".5rem 0" }}>Confirmar Reserva</p>
@@ -353,6 +404,9 @@ const NuevaReserva = ({ prestador, precio = '{"precio": 0, "tiempo": 0}' }) => {
             selectedHour={formData.hora}
             onChange={handleHoraChange}
           />
+          {availableHours.length === 0 && (
+            <p>No hay horarios disponibles para la fecha seleccionada.</p>
+          )}
         </div>
         <div>
           <p style={{ margin: ".5rem 0" }}>Confirmar Reserva</p>

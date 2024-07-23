@@ -25,6 +25,8 @@ const Card = ({ prestador, idPrestador }) => {
   const handlePriceChange = (value) => {
     setSelectedPrice(value);
   }
+
+  console.log(selectedPrice,"selectedPrice");
   return (
     <div className="card">
       <div className="card__img">
@@ -41,7 +43,7 @@ const Card = ({ prestador, idPrestador }) => {
       <RadioGroup onChange={handlePriceChange} value={selectedPrice}>
           {prestador?.valors.data.map(valor => (
             <div key={valor.id} style={{color:"wheat", borderBottom:"dashed 1px wheat", padding:"4px"}} className='titMai'>
-              <Radio value={valor.id.toString()}>
+              <Radio value={valor.attributes.precio}>
                 <b>{valor.attributes.nombre} <br/> </b>  
                 ${valor.attributes.precio} 
                 {valor.attributes.tiempo && <div><b>duración:</b> {valor.attributes.tiempo}</div>}
@@ -66,7 +68,7 @@ const Card = ({ prestador, idPrestador }) => {
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={closeModal}>&times;</span>
-            <NuevaReserva prestador={{ idPrestador, name }} precio={selectedPrice} />
+            <NuevaReserva prestador={{ idPrestador, name }} precio={Number(selectedPrice)} />
           </div>
         </div>
       )}
