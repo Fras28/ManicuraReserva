@@ -4,6 +4,7 @@ import { createReserva } from "./redux/slice";
 import "react-datepicker/dist/react-datepicker.css";
 import ReactDatePicker from "react-datepicker";
 import CheckoutPro from "../MercadoPago/PaymentForm";
+import classNames from "classnames";
 
 const NuevaReserva = ({ prestador, precio  }) => {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ console.log(selectedPrice,"selectedPrice");
 
   const [formData, setFormData] = useState(initialFormData);
   const [messages, setMessages] = useState({ success: "", error: "" });
+  const [unavailableDates, setUnavailableDates] = useState([]);
   const [availableDates, setAvailableDates] = useState([]);
   const [availableHours, setAvailableHours] = useState([]);
 
@@ -74,19 +76,48 @@ console.log(selectedPrice,"selectedPrice");
   const updateAvailableDates = () => {
     if (!formData.prestador) return;
 
+    const selectedPrestador = prestadores.find(
+      (p) => p.id === parseInt(formData.prestador)
+    );
+    if (!selectedPrestador) return;
+
     const today = new Date();
     const dates = [];
+    const unavailableDates = [];
+
     for (let i = 0; i < 30; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() + i);
-      if (date.getDay() !== 0) {
-        // Excluye los domingos
-        if (!isDayFull(date)) {
+      const dateString = date.toISOString().split("T")[0]; // YYYY-MM-DD format
+
+      const hasAvailableHorario =
+        selectedPrestador.attributes.horarios.data.some((horario) => {
+          const horarioStart = new Date(horario.attributes.fechaInicio);
+          const horarioEnd = new Date(horario.attributes.fechaFin);
+          const isWithinDateRange = date >= horarioStart && date <= horarioEnd;
+
+          if (isWithinDateRange) {
+            const horaInicio = new Date(
+              `${dateString}T${horario.attributes.horaInicio}`
+            );
+            const horaFin = new Date(
+              `${dateString}T${horario.attributes.horaFin}`
+            );
+            return horaFin > horaInicio; // Check if there's actually time available on this day
+          }
+          return false;
+        });
+
+      if (hasAvailableHorario) {
+        if (isDayFull(date)) {
+          unavailableDates.push(date);
+        } else {
           dates.push(date);
         }
       }
     }
     setAvailableDates(dates);
+    setUnavailableDates(unavailableDates);
   };
 
   const updateAvailableHours = () => {
@@ -210,16 +241,11 @@ console.log(selectedPrice,"selectedPrice");
   };
 
   const isDayFull = (date) => {
-    const validDate = date instanceof Date ? date : new Date(date);
-    if (isNaN(validDate.getTime())) {
-      console.error("Invalid date:", date);
-      return false;
-    }
-    const dateString = validDate.toISOString().split("T")[0];
+    const dateString = date.toISOString().split("T")[0];
     const reservasDelDia = reservas?.filter(
       (reserva) =>
-        reserva.attributes.fecha === dateString &&
-        reserva.attributes.prestador.data.id === formData.prestador
+        reserva?.attributes?.fecha === dateString &&
+        reserva?.attributes?.prestador?.data.id === parseInt(formData.prestador)
     );
     return reservasDelDia?.length >= maxReservasPorDia;
   };
@@ -267,6 +293,17 @@ console.log(selectedPrice,"selectedPrice");
               onChange={handleDateChange}
               includeDates={availableDates}
               dateFormat="yyyy-MM-dd"
+              placeholderText="Seleccionar fecha"
+              required
+              dayClassName={(date) => {
+                const dateString = date.toISOString().split("T")[0];
+                return classNames({
+                  "date-unavailable": isDayFull(date),
+                  "date-available": availableDates.some(
+                    (d) => d.toISOString().split("T")[0] === dateString
+                  ),
+                });
+              }}
             />
           </div>
           <div>
@@ -361,11 +398,22 @@ console.log(selectedPrice,"selectedPrice");
         <div>
           <label>Fecha</label>
           <ReactDatePicker
-            selected={formData.fecha}
-            onChange={handleDateChange}
-            includeDates={availableDates}
-            dateFormat="yyyy-MM-dd"
-          />
+              selected={formData.fecha}
+              onChange={handleDateChange}
+              includeDates={availableDates}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="Seleccionar fecha"
+              required
+              dayClassName={(date) => {
+                const dateString = date.toISOString().split("T")[0];
+                return classNames({
+                  "date-unavailable": isDayFull(date),
+                  "date-available": availableDates.some(
+                    (d) => d.toISOString().split("T")[0] === dateString
+                  ),
+                });
+              }}
+            />
         </div>
         <div>
           <label>Hora</label>

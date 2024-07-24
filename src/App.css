@@ -680,6 +680,22 @@ margin-top: 0 !important;
   border: 2px solid #87CEFA;
   background-color: #e6f7ff;
 }
+/* Estilos para el calendario */
+.date-unavailable {
+  background-color: #ffcccc !important;
+  color: #666 !important;
+  border-radius: 0.3rem;
+}
+
+.date-available {
+  border: 2px solid #87CEFA !important;
+  border-radius: 0.3rem;
+}
+
+.react-datepicker__day--selected {
+  background-color: #216ba5 !important;
+  color: white !important;
+}
 
 .css-cs9aj7{
   background-color: #88b9bf70;
