@@ -655,8 +655,31 @@ margin-top: 0 !important;
   padding: 1rem;
   background-color: #E5B9D7;
 }
+/* ------------ selectoor de horas ----------- */
 
+.hora-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
 
+.hora-opcion {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hora-opcion:hover {
+  background-color: #f0f0f0;
+}
+
+.hora-seleccionada {
+  border: 2px solid #87CEFA;
+  background-color: #e6f7ff;
+}
 
 .css-cs9aj7{
   background-color: #88b9bf70;

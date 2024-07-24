@@ -92,71 +92,41 @@ console.log(selectedPrice,"selectedPrice");
   const updateAvailableHours = () => {
     if (!formData.prestador || !formData.fecha) return;
   
-    // Verifica que formData.fecha es una instancia válida de Date
+    const selectedPrestador = prestadores.find(p => p.id === parseInt(formData.prestador));
+    if (!selectedPrestador) return;
+  
     const selectedDate = new Date(formData.fecha);
-    if (isNaN(selectedDate)) {
-      console.error('Fecha seleccionada no es válida', formData.fecha);
-      return;
-    }
+    const dateString = selectedDate.toISOString().split('T')[0]; // YYYY-MM-DD format
   
-    // Encuentra los datos del prestador
-    const prestadorData = prestadores.find((p) => p.id === formData.prestador);
-    if (!prestadorData) {
-      console.error('No se encontraron datos para el prestador', formData.prestador);
-      return;
-    }
-  
-    const horariosConfigurados = prestadorData.attributes?.horarios?.data || [];
-    const reservas = prestadorData.attributes?.reservas?.data || [];
-    const fechaSeleccionada = selectedDate.toISOString().split("T")[0];
-  
-    // Filtra los horarios para la fecha seleccionada
-    const horariosDelDia = horariosConfigurados.filter((horario) => {
-      const fechaInicio = new Date(horario.attributes.fecha_inicio);
-      const fechaFin = new Date(horario.attributes.fecha_fin);
-  
-      // Verifica que las fechas son válidas
-      if (isNaN(fechaInicio) || isNaN(fechaFin)) {
-        console.error('Fecha inválida en los horarios configurados', horario);
-        return false;
-      }
-  
-      return (
-        fechaSeleccionada >= fechaInicio.toISOString().split("T")[0] &&
-        fechaSeleccionada <= fechaFin.toISOString().split("T")[0]
-      );
+    // Find all horarios that include the selected date
+    const relevantHorarios = selectedPrestador.attributes.horarios.data.filter(horario => {
+      const horarioStart = new Date(horario.attributes.fechaInicio);
+      const horarioEnd = new Date(horario.attributes.fechaFin);
+      return selectedDate >= horarioStart && selectedDate <= horarioEnd;
     });
   
-    // Genera todas las horas posibles para el día
-    const hours = horariosDelDia.reduce((acc, horario) => {
-      const horaInicio = parseInt(horario.attributes.hora_inicio.split(":")[0], 10);
-      const horaFin = parseInt(horario.attributes.hora_fin.split(":")[0], 10);
-      for (let i = horaInicio; i < horaFin; i++) {
-        const hour = `${i.toString().padStart(2, "0")}:00`;
-        acc.push(hour);
+    let availableHours = [];
+    relevantHorarios.forEach(horario => {
+      const startHour = parseInt(horario.attributes.horaInicio.split(':')[0]);
+      const endHour = parseInt(horario.attributes.horaFin.split(':')[0]);
+      
+      for (let hour = startHour; hour < endHour; hour++) {
+        availableHours.push(`${hour.toString().padStart(2, '0')}:00`);
       }
-      return acc;
-    }, []);
-  
-    // Filtra las horas que ya han sido reservadas
-    const reservedHours = reservas
-      .filter((reserva) => reserva.attributes.fecha === fechaSeleccionada)
-      .map((reserva) => reserva.attributes.hora.slice(0, 5));
-  
-    const availableHours = hours.filter((hour) => !reservedHours.includes(hour));
-  
-    // Ordena las horas de menor a mayor
-    const sortedHours = availableHours.sort((a, b) => {
-      const timeA = parseInt(a.split(':')[0]) * 60 + parseInt(a.split(':')[1]);
-      const timeB = parseInt(b.split(':')[0]) * 60 + parseInt(b.split(':')[1]);
-      return timeA - timeB;
     });
   
-    // Actualiza el estado o realiza alguna acción con `sortedHours`
-    // Ejemplo: actualiza el estado en un componente React
-    setAvailableHours(sortedHours);
+    // Remove duplicates and sort
+    availableHours = [...new Set(availableHours)].sort();
+  
+    // Filter out already reserved hours
+    const reservedHours = selectedPrestador.attributes.reservas.data
+      .filter(reserva => reserva.attributes.fecha === dateString)
+      .map(reserva => reserva.attributes.hora.slice(0, 5));
+  
+    availableHours = availableHours.filter(hour => !reservedHours.includes(hour));
+  
+    setAvailableHours(availableHours);
   };
-
   
   const handleChange = (e) => {
     const { name, value } = e.target;
