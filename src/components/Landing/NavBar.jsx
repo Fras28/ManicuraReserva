@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Logo from "../assets/VARIANTE-13.png";
+import Logo from "../assets/Logo.png";
 import {
   Box,
   Flex,
@@ -228,7 +228,7 @@ const WithSubnavigation = () => {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue('#88B9BF', 'gray.800')}
+        bg={useColorModeValue('#000000b5')}
         color={useColorModeValue('gray.600', 'white')}
         minH={'60px'}
         py={{ base: 2 }}
@@ -286,7 +286,7 @@ const WithSubnavigation = () => {
             </Menu>
           ) : (
             <>
-              <Button as={Link} to="/login" fontSize={'sm'} fontWeight={400} variant={'link'} color={"#6C442B"}>
+              <Button as={Link} to="/login" fontSize={'sm'} fontWeight={400} variant={'link'} color={"#88B9BF"}>
                 Ingresar
               </Button>
               <Button

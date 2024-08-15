@@ -10,7 +10,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
-import logo from "./assets/VARIANTE-13.png";
+import logo from "./assets/Logo.png";
 
 import AppStoreBadge from './AppStoreBadge';
 import PlayStoreBadge from './PlayStoreBadge';

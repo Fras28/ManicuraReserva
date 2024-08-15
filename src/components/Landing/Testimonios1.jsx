@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Parallax } from 'react-parallax';
 import { Box, useMediaQuery } from '@chakra-ui/react';
-import bgImg from "../assets/bgComents.jpeg";
 import WithSpeechBubbles from './Testimonios';
 import NuevaReserva from '../NuevaReserva';
 
@@ -21,7 +20,7 @@ const Testim = () => {
     <>
       {isMobile ? (
         <Box
-          bgImage={`url(${bgImg})`}
+          backgroundColor="#000000b5"
           bgSize="cover"
           bgPos="center"
           minH="70vh"
@@ -35,7 +34,6 @@ const Testim = () => {
         </Box>
       ) : (
         <Parallax
-          bgImage={bgImg}
           strength={500}
           bgImageStyle={{
             left: '50%',

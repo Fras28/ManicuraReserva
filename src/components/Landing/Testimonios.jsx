@@ -8,8 +8,10 @@ import {
   Container,
   Avatar,
   useColorModeValue,
+  Icon,
 } from '@chakra-ui/react';
 import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
+import { FaStar } from 'react-icons/fa';
 
 const Testimonial = ({ children }) => {
   return <Box>{children}</Box>;
@@ -78,14 +80,30 @@ const TestimonialAvatar = ({ src, name, title }) => {
   );
 };
 
+const Rating = ({ rating }) => {
+  return (
+    <Flex>
+      {[...Array(5)].map((_, i) => (
+        <Icon
+          key={i}
+          as={FaStar}
+          color={i < rating ? "yellow.400" : "gray.300"}
+          w={4}
+          h={4}
+        />
+      ))}
+    </Flex>
+  );
+};
+
 export default function WithSpeechBubbles() {
   return (
     <ParallaxProvider>
       <Box className='testimonios-content'>
         <Container maxW={'7xl'} py={16} as={Stack} spacing={12}>
           <Stack spacing={0} align={'center'}>
-            <Heading  color={'whitesmoke'}> Our Clients Speak</Heading>
-            <Text color={'whitesmoke'}>We have been working with clients around the world</Text>
+            <Heading color={'whitesmoke'}>Experiencias de nuestras clientas</Heading>
+            <Text color={'whitesmoke'}>Descubre lo que dicen sobre nuestros servicios de belleza y estética</Text>
           </Stack>
           <Stack
             direction={{ base: 'column', md: 'row' }}
@@ -93,54 +111,54 @@ export default function WithSpeechBubbles() {
             <Parallax className="custom-class" y={[-20, 20]} tagOuter="figure">
               <Testimonial>
                 <TestimonialContent>
-                  <TestimonialHeading>Efficient Collaborating</TestimonialHeading>
+                  <TestimonialHeading>Manicura perfecta</TestimonialHeading>
+                  <Rating rating={5} />
                   <TestimonialText>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed
-                    imperdiet nibh lectus feugiat nunc sem.
+                    Me encantó mi experiencia en el salón. La manicura semipermanente quedó impecable y duró más de lo esperado. El personal fue muy amable y profesional.
                   </TestimonialText>
                 </TestimonialContent>
                 <TestimonialAvatar
                   src={
                     'https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80'
                   }
-                  name={'Jane Cooper'}
-                  title={'CEO at ABC Corporation'}
+                  name={'Laura Martínez'}
+                  title={'Cliente satisfecha'}
                 />
               </Testimonial>
             </Parallax>
             <Parallax className="custom-class" y={[-20, 20]} tagOuter="figure">
               <Testimonial>
                 <TestimonialContent>
-                  <TestimonialHeading>Intuitive Design</TestimonialHeading>
+                  <TestimonialHeading>Lifting de pestañas increíble</TestimonialHeading>
+                  <Rating rating={5} />
                   <TestimonialText>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed
-                    imperdiet nibh lectus feugiat nunc sem.
+                    El lifting de pestañas superó mis expectativas. Mis pestañas lucen naturalmente largas y curvadas. La esteticista fue muy cuidadosa y el resultado es asombroso.
                   </TestimonialText>
                 </TestimonialContent>
                 <TestimonialAvatar
                   src={
                     'https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80'
                   }
-                  name={'Jane Cooper'}
-                  title={'CEO at ABC Corporation'}
+                  name={'Sofía Rodríguez'}
+                  title={'Influencer de belleza'}
                 />
               </Testimonial>
             </Parallax>
             <Parallax className="custom-class" y={[-20, 20]} tagOuter="figure">
               <Testimonial>
                 <TestimonialContent>
-                  <TestimonialHeading>Mindblowing Service</TestimonialHeading>
+                  <TestimonialHeading>Perfilado de cejas perfecto</TestimonialHeading>
+                  <Rating rating={4} />
                   <TestimonialText>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed
-                    imperdiet nibh lectus feugiat nunc sem.
+                    El perfilado de cejas transformó mi rostro. La forma es exactamente lo que quería y el proceso fue rápido y sin dolor. Muy contenta con el resultado.
                   </TestimonialText>
                 </TestimonialContent>
                 <TestimonialAvatar
                   src={
                     'https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80'
                   }
-                  name={'Jane Cooper'}
-                  title={'CEO at ABC Corporation'}
+                  name={'Carolina López'}
+                  title={'Cliente frecuente'}
                 />
               </Testimonial>
             </Parallax>

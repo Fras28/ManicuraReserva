@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
 }
 .App {
@@ -42,7 +42,7 @@
 }
 
 /* ------------------FONTS --------------- */
-.titMai{
+.titMai {
   font-family: "Berkshire Swash", serif;
   font-weight: 400;
   font-style: normal;
@@ -53,7 +53,7 @@
 }
 
 /* --------------------NAB BAR ----------------- */
-.css-1ef8uzr{
+.css-1ef8uzr {
   align-items: center;
 }
 /* --------------- calendario ------------- */
@@ -178,7 +178,7 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 8%;
-  justify-content: center
+  justify-content: center;
 }
 
 .horario-casilla {
@@ -207,7 +207,7 @@
   position: absolute;
   top: -10px;
   right: -10px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border-radius: 50%;
   padding: 2px;
@@ -240,7 +240,8 @@
   color: red;
 }
 
-.nueva-reserva-form input, .nueva-reserva-form select {
+.nueva-reserva-form input,
+.nueva-reserva-form select {
   width: 100%;
   padding: 8px;
   font-size: 16px;
@@ -281,10 +282,11 @@
   color: lightblue;
 }
 .cho-container button {
-  background-color: #71D2F2;
+  background-color: #71d2f2;
   font-weight: bold;
   border-radius: 12px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 /* ---------------------- Hero Paralax --------------- */
@@ -306,7 +308,7 @@
     50% 100%,
     0 calc(100% - 50px)
   ); */
-  background-color:#88b9bf ;
+  background-color: #88b9bf;
   border-radius: 24px;
 }
 
@@ -328,24 +330,22 @@
   .boxHero {
     height: auto;
   }
-  .css-xj6ol9{
+  .css-xj6ol9 {
     width: 100vw;
   }
 }
 
-
 /* --------------- Prestadores ------------------ */
 .bgPrestador {
   padding: 2rem;
-  border-bottom: solid 2px #6E5F83;
-  background-color: #E5B9D7;
+  border-bottom: solid 2px #6e5f83;
+  background-color: #e5b9d7;
   position: relative;
 }
 
 .semicircle {
   position: relative;
   background: #88b9bf;
-
 }
 
 .bgPrestador {
@@ -359,9 +359,9 @@
   width: 250px; /* Ajusta según tus necesidades */
   height: 250px; /* Ajusta según tus necesidades */
   border-radius: 50%;
-  background-image: url("./components/assets/FondoLogo.jpg"); /* Color de fondo del círculo */
+  background-color: #000000b5;
   z-index: 1; /* Asegúrate de que estén detrás de las cartas */
-  border: solid 2px #6E5E84; 
+  border: solid 2px #6e5e84;
 }
 
 .circle-1 {
@@ -388,9 +388,8 @@
   align-items: center;
 }
 
-
 .css-1bpnzr3 {
-margin-top: 0 !important;
+  margin-top: 0 !important;
 }
 /* ----------------------  Cards ------------------------  */
 .cont-Cards {
@@ -411,7 +410,7 @@ margin-top: 0 !important;
   flex-direction: column;
   align-items: center;
   border-radius: 12px;
-  border: solid 8px #2E1F13;
+  border: solid 8px #2e1f13;
   background: #4a4a4a;
   overflow: hidden;
   background: rgb(87, 87, 87);
@@ -420,9 +419,10 @@ margin-top: 0 !important;
     rgba(87, 87, 87, 1) 0%,
     rgba(87, 87, 87, 1) 100%
   );
-  padding-bottom: .5rem;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  gap: .5rem;
+  padding-bottom: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  gap: 0.5rem;
 }
 
 .card__img {
@@ -441,7 +441,7 @@ margin-top: 0 !important;
 .card__avatar {
   width: 114px;
   height: 114px;
-  background: var(--bg-color);
+  /* background: var(--bg-color); */
   border-radius: 100%;
   display: flex;
   justify-content: center;
@@ -480,7 +480,8 @@ margin-top: 0 !important;
   background: var(--bg-color);
   text-transform: uppercase;
   transition: all 0.3s;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .card__btn-solid {
@@ -540,8 +541,10 @@ margin-top: 0 !important;
 }
 
 /* ------------------- HISTORIA ----------------------- */
-.LogoWebHistoria{
+.LogoWebHistoria {
   display: none;
+  background-color: #000000b5;
+border-radius: 50%;
 }
 
 /* ---------------------- Testimonion ----------------- */
@@ -610,8 +613,6 @@ margin-top: 0 !important;
   border-radius: 24px;
 }
 
-
-
 .testim-mobile-container {
   display: none;
 }
@@ -631,29 +632,30 @@ margin-top: 0 !important;
   }
 }
 /* ----------------- Mercado pago boton -------------------*/
-.cho-container{
+.cho-container {
   display: flex;
   justify-content: center;
 }
 /* ----------------- Mercado pago boton -------------------*/
-.css-1kjx7mh{
+.css-1kjx7mh {
   background-color: #ffffff26;
   padding: 1rem;
   border-radius: 12px;
 }
 .buttonHero {
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  width: 15%;
 }
 
 /* --------------------NAB BAR ----------------- */
-.css-1ef8uzr{
+.css-1ef8uzr {
   align-items: center;
 }
 
 /* -------------------- LANDING ----------------- */
-.cont-landing{
+.cont-landing {
   padding: 1rem;
-  background-color: #E5B9D7;
+  background-color: #e5b9d7;
 }
 /* ------------ selectoor de horas ----------- */
 
@@ -677,7 +679,7 @@ margin-top: 0 !important;
 }
 
 .hora-seleccionada {
-  border: 2px solid #87CEFA;
+  border: 2px solid #87cefa;
   background-color: #e6f7ff;
 }
 /* Estilos para el calendario */
@@ -688,7 +690,7 @@ margin-top: 0 !important;
 }
 
 .date-available {
-  border: 2px solid #87CEFA !important;
+  border: 2px solid #87cefa !important;
   border-radius: 0.3rem;
 }
 
@@ -697,7 +699,7 @@ margin-top: 0 !important;
   color: white !important;
 }
 
-.css-cs9aj7{
+.css-cs9aj7 {
   background-color: #88b9bf70;
   border-radius: 12px;
   padding: 1rem;
@@ -718,14 +720,13 @@ margin-top: 0 !important;
     gap: 1rem;
   }
   .css-b3d31b {
-  overflow: hiddenreact-parallax-bgimage;
+    overflow: hiddenreact-parallax-bgimage;
   }
   .parallax-container {
     background-size: 100% auto; /* Ajusta la imagen de fondo al 100% del ancho del contenedor */
   }
-  .css-1d1wr0h{
+  .css-1d1wr0h {
     height: auto;
-
   }
   .circle-1 {
     top: -70px; /* Ajusta la posición vertical */
@@ -733,9 +734,8 @@ margin-top: 0 !important;
     transform: translateX(-50%);
     width: 151px; /* Ajusta según tus necesidades */
     height: 151px; /* Ajusta según tus necesidades */
-
   }
-  
+
   .circle-2 {
     position: absolute;
     width: 150px; /* Ajusta según tus necesidades */
@@ -746,8 +746,7 @@ margin-top: 0 !important;
     left: -10%; /* Ajusta la posición horizontal */
     transform: rotate(70deg); /* Rotación de 70 grados */
   }
-  
-  
+
   .circle-3 {
     position: absolute;
     width: 150px; /* Ajusta según tus necesidades */
@@ -759,22 +758,19 @@ margin-top: 0 !important;
     transform: rotate(20deg); /* Rotación de 70 grados */
   }
   .css-fig1r1 {
-  padding-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
-  .LogoWebHistoria{
+  .LogoWebHistoria {
     display: block;
   }
   .modal-content {
-
     bottom: 0;
-
   }
- 
+  .buttonHero {
+    width: 45%;
+  }
 }
 
-
-
-
-*{
+* {
   box-sizing: content-box;
-  }
+}

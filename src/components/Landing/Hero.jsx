@@ -2,9 +2,9 @@ import React, { useRef } from 'react';
 import { Parallax } from 'react-parallax';
 import { Box, Button, Heading, Text, useMediaQuery } from '@chakra-ui/react';
 import { BiBasket, BiCalendarPlus } from 'react-icons/bi';
-import bgImg from "../assets/fondo.jpg";
+import bgImg from "../assets/esteticHero.jpg";
 import Prestadores from '../Prestadores';
-import Logo from "../assets/VARIANTE-11.png"
+import Logo from "../assets/Logo.png"
 
 const HeroSection = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -15,7 +15,7 @@ const HeroSection = () => {
   };
 
   const content = (
-    <Box className='boxHero' display="flex" justifyContent="center" alignItems="center" bg="rgba(0, 0, 0, 0.5)" minH="70vh">
+    <Box className='boxHero' display="flex" justifyContent="center" alignItems="center" bg="rgba(0, 0, 0, 0.5)" minH="70vh" borderRadius="24px">
       <Box textAlign="center" color="white" position="relative">
         <Heading
           as="h1"
@@ -25,19 +25,20 @@ const HeroSection = () => {
             WebkitTextStroke: "2px #2e1f13",
             fontFamily: "Berkshire Swash, serif",
             display:"flex",
-            justifyContent:"center"
+            justifyContent:"center",
+         
           }}
         >
-          <img src={Logo} alt="Logo" width="30%" style={{backgroundColor:"#000000b5", borderRadius:"50%"}} className='buttonHero'/>
+          <img src={Logo} alt="Logo"  style={{backgroundColor:"#000000b5", borderRadius:"50%"}} className='buttonHero'/>
         </Heading>
         <Text fontSize="32px" mb="6" className='titMai'>
-          Maia Magical World
+          Shiny Nails
         </Text>
         <Button  style={{backgroundColor:"#88B9BF", border:"solid #6E5E84 4px", borderRadius:"12px", color:"#6E5E84" }} size="lg" onClick={scrollToPrestadores}>
         <BiCalendarPlus className="mr-2" size={24} /> Hacer Reserva
         </Button>
         <Text fontSize="l" mb="6">
-          Tarot | Vitki | Carta Natal
+          Semipermanentes | Soft Gel | Lifting | Perfilado
         </Text>
       </Box>
     </Box>
@@ -54,7 +55,8 @@ const HeroSection = () => {
           minH="70vh"
           display="flex"
           justifyContent="center"
-          alignItems="center"
+          alignItems="center" 
+          borderRadius="24px"
         >
           {content}
         </Box>

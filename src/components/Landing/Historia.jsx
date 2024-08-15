@@ -10,9 +10,9 @@ import {
   createIcon,
   Icon,
 } from "@chakra-ui/react";
-import Mai1 from "../assets/Mai2.jpg"
-import Mai2 from "../assets/Mai1.jpg"
-import Logo from "../assets/STICKER.png"
+import Mai1 from "../assets/manic1.jpg"
+import Mai2 from "../assets/manic2.jpg";
+import Logo from "../assets/Logo.png";
 
 export default function Historia() {
   return (
@@ -43,17 +43,21 @@ export default function Historia() {
                 bg: "#e5b9d7",
                 zIndex: -1,
               }}
-              className='titMai'
+              className="titMai"
               fontSize={"44px"}
             >
-              ¿Quién es Maia Magical World?
+              Bienvenidos a Belleza Radiante
             </Text>
           </Heading>
           <Text color={"gray.500"}>
-            ¡Hola! Soy Maia, una tarotista con años de experiencia y una pasión
-            inmensa por ayudar a las personas a reconectar con su verdadero
-            camino. Creo firmemente que cuando sabemos hacia dónde vamos, la
-            vida se vuelve mucho más sencilla y gratificante.
+            En Belleza Radiante, nos dedicamos a realzar tu belleza natural y a
+            brindarte una experiencia de cuidado personal incomparable. Fundado
+            en 2015 por la reconocida esteticista María Fernández, nuestro
+            centro se ha convertido en un oasis de belleza y relajación en el
+            corazón de la ciudad. Nuestra Misión Nuestra misión es simple pero
+            poderosa: ayudarte a sentirte bella por dentro y por fuera. Creemos
+            que la verdadera belleza comienza con el cuidado personal y la
+            confianza en uno mismo.
           </Text>
         </Stack>
         <Flex
@@ -79,7 +83,7 @@ export default function Historia() {
             />
           </Box>
         </Flex>
-          <img src={Logo} alt="" width={"50%"} className="LogoWebHistoria"/>
+        <img src={Logo} alt="" width={"50%"} className="LogoWebHistoria" />
       </Stack>
 
       {/* Segunda Sección */}
@@ -89,7 +93,7 @@ export default function Historia() {
         py={{ base: 20, md: 28 }}
         direction={{ base: "column-reverse", md: "row" }}
       >
-           <Flex
+        <Flex
           flex={1}
           justify={"center"}
           align={"center"}
@@ -114,21 +118,17 @@ export default function Historia() {
         </Flex>
         <Stack flex={1} spacing={{ base: 5, md: 10 }}>
           <Text color={"gray.500"}>
-            Mi enfoque es ofrecerte una guía clara y amorosa a través del tarot
-            evolutivo terapéutico y la carta natal maya. En cada consulta, me
-            esfuerzo por brindarte no solo respuestas, sino también la empatía y
-            el cariño necesarios para que te sientas comprendido y apoyado en
-            cada paso de tu viaje.
+         <b>Nuestro Equipo</b> 
+          Contamos con un equipo de profesionales altamente calificados y apasionados por su trabajo. Cada miembro de nuestro staff se mantiene actualizado con las últimas tendencias y técnicas en estética.
             <br />
             <br />
-            Soy una persona carismática, empática y profundamente comprometida
-            con mi labor. Mi objetivo es acompañarte con profesionalismo y amor,
-            para que juntos podamos descubrir las maravillas que el universo
-            tiene reservadas para ti.
+           <b> Compromiso con la Calidad</b>
+            En Belleza Radiante, solo utilizamos productos de la más alta calidad, muchos de ellos orgánicos y respetuosos con el medio ambiente. Tu salud y satisfacción son nuestra prioridad.
             <br />
             <br />
-            ¡Te invito a vivir una experiencia transformadora y a descubrir la
-            magia que reside dentro de ti!
+           <b>Experiencia Personalizada</b> 
+Entendemos que cada cliente es único. Por eso, ofrecemos tratamientos personalizados que se adaptan a tus necesidades y deseos específicos.
+Ven a Belleza Radiante y descubre por qué somos el destino preferido para quienes buscan realzar su belleza natural. ¡Tu journey hacia una versión más radiante de ti misma comienza aquí!
           </Text>
         </Stack>
       </Stack>
